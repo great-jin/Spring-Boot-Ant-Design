@@ -9,7 +9,7 @@ export function List(params) {
 
 export function getUser(params) {
     return request({
-        url: `/users/getUser?code=${params}`,
+        url: `/users/get?code=${params}`,
         method: 'get'
     })
 }

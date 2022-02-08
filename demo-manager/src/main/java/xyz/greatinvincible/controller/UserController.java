@@ -17,9 +17,16 @@ public class UserController {
         return userServices.list().toString();
     }
 
-    @GetMapping("/getUser")
+    @GetMapping("/get")
     public String getUser(@RequestParam String code){
         return userServices.get(code).toString();
+    }
+
+    @PostMapping("/update")
+    public int updateUser(@RequestBody User user){
+        int i = 0 ;
+        i = userServices.updateUser(user);
+        return i;
     }
 
     @PostMapping("/login")
@@ -38,12 +45,4 @@ public class UserController {
         }
         return flag;
     }
-
-    @PostMapping("/updateUser")
-    public int updateUser(@RequestBody User user){
-        int i = 0 ;
-        i = userServices.updateUser(user);
-        return i;
-    }
-
 }

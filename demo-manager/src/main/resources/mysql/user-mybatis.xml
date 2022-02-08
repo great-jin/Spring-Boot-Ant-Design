@@ -6,7 +6,7 @@
 
     <resultMap type="xyz.greatinvincible.entity.User" id="userResult">
         <id property="ID" column="id" />
-        <result property="accountCode" column="account_Code"/>
+        <result property="accountCode" column="account_code"/>
         <result property="userName" column="username"/>
         <result property="password" column="password"/>
         <result property="isDelete" column="is_delete"/>
@@ -18,18 +18,18 @@
 
     <select id="get" resultMap="userResult" parameterType="String">
         select * from tb_user
-        where account_Code = #{ code }
+        where account_code = #{ code }
     </select>
 
     <select id="getUserByCode" resultMap="userResult" parameterType="xyz.greatinvincible.entity.User">
         select * from tb_user
-        where account_Code = #{ accountCode }
+        where account_code = #{ accountCode }
     </select>
 
     <update id="update" parameterType="xyz.greatinvincible.entity.User">
         update tb_user
         set username = #{ userName }
-        where account_Code = #{ accountCode }
+        where account_code = #{ accountCode }
     </update>
 
 </mapper>
