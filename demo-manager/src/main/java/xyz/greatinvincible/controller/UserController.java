@@ -18,8 +18,12 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public String getUser(@RequestParam String code){
-        return userServices.get(code).toString();
+    public User getUser(@RequestParam String code){
+        User user = userServices.get(code);
+        if (user == null) {
+            user = new User();
+        }
+        return user;
     }
 
     @PostMapping("/update")
@@ -32,7 +36,7 @@ public class UserController {
     @PostMapping("/login")
     public int Login(@RequestBody User user){
         int flag = 0 ;
-        User user_login = userServices.getUserByCode(user);
+        User user_login = userServices.getByCode(user);
         if (user_login != null){
             if (user.getUserName().equals(user_login.getUserName()) && user.getPassword().equals(user_login.getPassword())){
                 flag = 1;

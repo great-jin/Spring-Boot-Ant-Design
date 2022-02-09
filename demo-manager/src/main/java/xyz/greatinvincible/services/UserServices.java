@@ -1,19 +1,14 @@
 package xyz.greatinvincible.services;
 
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import xyz.greatinvincible.entity.User;
-
 import java.util.List;
 
-@CacheConfig(cacheNames = "users")
 public interface UserServices {
 
     /**
      * Author:Budai 2022/1/6 20:40
      * @return List<User>
      */
-    @Cacheable
     List<User> list();
 
     /**
@@ -21,7 +16,6 @@ public interface UserServices {
      * @param code
      * @return User
      */
-    @Cacheable
     User get(String code);
 
     /**
@@ -29,7 +23,7 @@ public interface UserServices {
      * @param user
      * @return User
      */
-    User getUserByCode(User user);
+    User getByCode(User user);
 
     /**
      * Author:Budai 2021/12/31 19:40
