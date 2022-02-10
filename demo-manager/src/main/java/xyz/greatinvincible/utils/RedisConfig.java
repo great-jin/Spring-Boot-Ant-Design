@@ -24,7 +24,7 @@ public class RedisConfig {
     public CacheManager cacheManager(RedisConnectionFactory factory) {
         RedisCacheConfiguration cacheConfig = RedisCacheConfiguration.defaultCacheConfig()
                 // 设置过期时间 10 分钟
-                .entryTtl(Duration.ofMinutes(10))
+                .entryTtl(Duration.ofMinutes(5))
                 // 设置缓存前缀
                 .prefixKeysWith("users:")
                 // 禁止缓存 null 值
