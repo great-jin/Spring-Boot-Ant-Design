@@ -41,6 +41,9 @@ public class UserServicesImpl implements UserServices {
         return userMapper.getUser(user);
     }
 
+    /**
+     * 新增用户后清除缓存中的列表数据
+     */
     @Override
     @CacheEvict(key = "0")
     public int add(User user) {
@@ -49,6 +52,7 @@ public class UserServicesImpl implements UserServices {
 
     /**
      * 同时删除多个缓存
+     * 同时清除列表和 get 用户的缓存
      */
     @Override
     @Caching(evict = {
@@ -60,6 +64,9 @@ public class UserServicesImpl implements UserServices {
         return userMapper.update(user);
     }
 
+    /**
+     * 删除用户后清除缓存中的列表数据
+     */
     @Override
     @CacheEvict(key = "0")
     public int delete(String code) {
