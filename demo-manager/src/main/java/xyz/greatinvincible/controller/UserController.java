@@ -33,27 +33,16 @@ public class UserController {
         return userServices.add(user);
     }
 
-    @PostMapping("/update")
-    public int update(@RequestBody User user){
-        return userServices.update(user);
-    }
-
-    @PostMapping("/delete")
-    public int delete(@Param("code") String code){
-        return userServices.delete(code);
-    }
-
     @PostMapping("/login")
     public int Login(@RequestBody User user){
-        int flag = 0 ;
         String userName = user.getUserName();
         String password = user.getPassword();
 
         User loginUser = userServices.getUser(user);
-
         String loginUserName = loginUser.getUserName();
         String loginPassword = loginUser.getPassword();
 
+        int flag = 0 ;
         if (loginUser != null){
             if (userName.equals(loginUserName) && password.equals(loginPassword)){
                 flag = 1;
@@ -66,4 +55,15 @@ public class UserController {
         }
         return flag;
     }
+
+    @PostMapping("/update")
+    public int update(@RequestBody User user){
+        return userServices.update(user);
+    }
+
+    @PostMapping("/delete")
+    public int delete(@Param("code") String code){
+        return userServices.delete(code);
+    }
+
 }

@@ -13,8 +13,10 @@ public class RedisCacheManager {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    /* 插入数据或者更新数据 */
-    public void insert(String key, Object value, long timeout, TimeUnit timeUnit) {
+    /**
+     *  插入数据或者更新数据
+     */
+    public void Insert(String key, Object value, long timeout, TimeUnit timeUnit) {
 
         if (StringUtils.isBlank(key) || !ObjectUtils.anyNotNull(value)) {
             return;
@@ -27,7 +29,7 @@ public class RedisCacheManager {
 
     }
 
-    public void delete(String key) {
+    public void Delete(String key) {
         redisTemplate.opsForValue().getOperations().delete(key);
     }
 }
