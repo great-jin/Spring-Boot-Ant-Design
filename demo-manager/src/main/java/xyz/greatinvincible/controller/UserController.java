@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import xyz.greatinvincible.entity.User;
 import xyz.greatinvincible.services.UserServices;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
@@ -29,6 +31,13 @@ public class UserController {
 
     @PostMapping("/add")
     public int add(@RequestBody User user){
+        String accountCode = user.getAccountCode();
+        List<User> list = userServices.list();
+        for(User user1 : list) {
+            if(accountCode.equals(user1.getAccountCode())){
+                return 2;
+            }
+        }
         user.setIsDelete(0);
         return userServices.add(user);
     }

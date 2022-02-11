@@ -2,6 +2,7 @@ package xyz.greatinvincible.services.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import xyz.greatinvincible.entity.User;
@@ -40,6 +41,7 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
+    @CacheEvict(value = "0", allEntries = true)
     public int add(User user) {
         return userMapper.insert(user);
     }
