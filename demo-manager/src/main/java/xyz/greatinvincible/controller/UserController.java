@@ -70,7 +70,7 @@ public class UserController {
         return userServices.update(user);
     }
 
-    @PostMapping("/delete")
+    @GetMapping("/delete")
     public int delete(@Param("code") String code){
         return userServices.delete(code);
     }

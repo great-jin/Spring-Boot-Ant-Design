@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import xyz.greatinvincible.entity.User;
 import xyz.greatinvincible.mapper.UserMapper;
@@ -35,23 +36,32 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
-    @Cacheable(key = "#user.ID")
+    @Cacheable(key = "#user.accountCode")
     public User getUser(User user) {
         return userMapper.getUser(user);
     }
 
     @Override
-    @CacheEvict(value = "0", allEntries = true)
+    @CacheEvict(key = "0")
     public int add(User user) {
         return userMapper.insert(user);
     }
 
+    /**
+     * 同时删除多个缓存
+     */
     @Override
+    @Caching(evict = {
+            @CacheEvict(key = "0"),
+            @CacheEvict(key = "#user.accountCode")
+            }
+    )
     public int update(User user) {
         return userMapper.update(user);
     }
 
     @Override
+    @CacheEvict(key = "0")
     public int delete(String code) {
         return userMapper.delete(code);
     }
