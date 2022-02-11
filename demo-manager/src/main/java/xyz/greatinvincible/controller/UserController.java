@@ -21,12 +21,12 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public User get(@RequestParam String code){
+    public String get(@RequestParam String code){
         User user = userServices.get(code);
         if (user == null) {
             user = new User();
         }
-        return user;
+        return user.toString();
     }
 
     @PostMapping("/add")

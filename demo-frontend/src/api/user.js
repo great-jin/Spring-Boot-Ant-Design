@@ -8,17 +8,38 @@ export function List(params) {
 }
 
 export function getUser(params) {
-    return request({
-        url: `/users/get?code=${params}`,
-        method: 'get'
-    })
+  return request({
+    url: `/users/get?code=${params}`,
+    method: 'get'
+  })
 }
 
-// 传入Json对象的键值对
+export function addUser(params) {
+  return request({
+    url: '/users/add',
+    method: 'post',
+    data: params
+  })
+}
 export function Login(params) {
-    return request({
-        url: '/users/login',
-        method: 'post',
-        data: params
-    })
+  return request({
+    url: '/users/login',
+    method: 'post',
+    data: params
+  })
+}
+
+export function updateUser(params) {
+  return request({
+    url: '/users/update',
+    method: 'post',
+    data: params
+  })
+}
+
+export function deleteUser(params) {
+  return request({
+    url: `/users/delete?code=${params}`,
+    method: 'get'
+  })
 }

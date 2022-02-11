@@ -1,36 +1,51 @@
 <template>
   <div id="app">
-    <div>
-      <a-input v-model="code" placeholder="Code"  style="margin-bottom: 10px"/>
-      <a-input v-model="user.accountCode" placeholder="Account Code"/>
-      <a-input v-model="user.userName" placeholder="User Name"/>
-      <a-input v-model="user.password" placeholder="Password"/>
-      <a-input v-model="backResult" placeholder="Result" disabled="disabled"/>
-    </div>
+    <a-input v-model="accountCode" placeholder="Account Code" style="margin-bottom: 10px"/>
+    <a-button @click="get()" style="margin-right: 120px">Get</a-button>
+    <a-button @click="remove()">Delete</a-button>
 
-    <div>
-      <a-button type="primary" @click="list" class="bt">List</a-button>
-      <a-button type="primary" @click="getUser" class="bt">User</a-button>
-      <a-button type="primary" @click="login" class="bt"> Login</a-button>
-      <a-button type="primary" @click="clear" class="bt">Clear</a-button>
-    </div>
+    <a-input v-model="backResult" placeholder="Result" disabled="disabled" style="margin-top: 10px"/>
+    <a-form :form="form">
+      <a-form-item>
+          <a-input
+            placeholder="Account Code"
+            v-decorator="['accountCode', { rules: [{ required: true, message: '账号不能为空!' }] }]"
+          />
+      </a-form-item>
+      <a-form-item>
+        <a-input
+          placeholder="UserName"
+          v-decorator="['userName', { rules: [{ required: true, message: '用户名不能为空!' }] }]"
+        />
+      </a-form-item>
+      <a-form-item>
+        <a-input
+          placeholder="Password"
+          v-decorator="['password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
+        />
+      </a-form-item>
+
+      <a-form-item>
+        <a-button @click="list()" style="margin-right: 5px">List</a-button>
+        <a-button @click="add()" style="margin-right: 5px">Add</a-button>
+        <a-button @click="login()" style="margin-right: 5px">Login</a-button>
+        <a-button @click="update()" style="margin-right: 100px">Update</a-button>
+        <a-button @click="clear()">Clear</a-button>
+      </a-form-item>
+    </a-form>
 
   </div>
 </template>
 
 <script>
-import { List, getUser, Login } from '@/api/user.js';
+import { List, Login, getUser, addUser, updateUser, deleteUser} from '@/api/user.js';
 export default {
   name: 'Index',
   data() {
     return {
-      code: '',
-      backResult:'',
-      user: {
-        accountCode: '',
-        userName: '',
-        password: ''
-      }
+      backResult: '',
+      accountCode: '',
+      form: this.$form.createForm(this)
     }
   },
   methods: {
@@ -40,41 +55,88 @@ export default {
         this.backResult = res
       })
     },
-    getUser() {
-      const params = this.code
-      console.log(params)
-      if (params !== '') {
-        getUser(params).then(res =>{
-          console.log(res)
+    get() {
+      const code = this.accountCode
+      console.log(code)
+      if(code !== '') {
+        getUser(code).then(res =>{
           this.backResult = res
-          this.$message.success(res)
         })
       } else {
-        this.$message.error('Pleace input the code!')
+        this.$message.error('不能为空')
       }
     },
+    add() {
+      this.form.validateFields((errors, values) => {
+        if (!errors) {
+          addUser(values).then(res =>{
+            console.log(res)
+            switch (res) {
+              case 1 :
+                this.backResult = '新增成功'
+                break
+              case 2 :
+                this.backResult = '账号重复'
+                break
+              case 0 :
+                this.backResult = '新增失败'
+                break
+            }
+          })
+        }
+      })
+    },
+    update() {
+      this.form.validateFields((errors, values) => {
+        if (!errors) {
+          updateUser(values).then(res =>{
+            console.log(res)
+            if (res === 1){
+              this.backResult = '更新成功'
+            } else {
+              this.backResult = '更新失败'
+            }
+          })
+        }
+      })
+    },
     login() {
-      const params = this.user
-      console.log(params)
-      if (params.accountCode !== '' && params.userName !== '' && params.password !== '') {
-        Login(params).then(res =>{
-          console.log(res)
+      this.form.validateFields((errors, values) => {
+        if (!errors) {
+          Login(values).then(res =>{
+            console.log(res)
+            switch (res) {
+              case 1 :
+                this.backResult = '登录成功'
+                break
+              case 2 :
+                this.backResult = '账号密码错误'
+                break
+              case 0 :
+                this.backResult = '登录失败'
+                break
+            }
+          })
+        }
+      })
+    },
+    remove() {
+      const code = this.accountCode
+      console.log(code)
+      if(code !== '') {
+        deleteUser(code).then(res =>{
           if (res === 1){
-            this.backResult = 'OK'
+            this.backResult = '删除成功'
           } else {
-            this.backResult = 'Faild'
+            this.backResult = '删除失败'
           }
         })
       } else {
-        this.$message.error('Pleace input the user info!')
+        this.$message.error('不能为空')
       }
     },
     clear() {
-      this.code = ''
-      this.user.accountCode = ''
-      this.user.userName = ''
-      this.user.password = ''
-      this.backResult = ''
+      this.form.resetFields()
     }
   },
 }
@@ -86,8 +148,5 @@ export default {
     margin: 20px auto;
     text-align: center;
     color: #2c3e50;
-  }
-  .bt{
-    margin-top:20px
   }
 </style>
