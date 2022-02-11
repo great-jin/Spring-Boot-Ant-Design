@@ -23,13 +23,27 @@ public interface UserServices {
      * @param user
      * @return User
      */
-    User getByCode(User user);
+    User getUser(User user);
+
+    /**
+     * Author:Budai 2022/2/11 20:39
+     * @param user
+     * @return int
+     */
+    int add(User user);
 
     /**
      * Author:Budai 2021/12/31 19:40
      * @param user
      * @return int
      */
-    int updateUser(User user);
+    int update(User user);
+
+    /**
+     * Author:Budai 2022/2/11 20:39
+     * @param code
+     * @return int
+     */
+    int delete(String code);
 
 }

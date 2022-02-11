@@ -21,15 +21,59 @@
         where account_code = #{ code }
     </select>
 
-    <select id="getUserByCode" resultMap="userResult" parameterType="xyz.greatinvincible.entity.User">
+    <select id="getUser" resultMap="userResult" parameterType="xyz.greatinvincible.entity.User">
         select * from tb_user
         where account_code = #{ accountCode }
     </select>
 
+    <insert id="insert" parameterType="xyz.greatinvincible.entity.User">
+        insert into tb_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accountCode != null">
+                account_code,
+            </if>
+            <if test="userName != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="accountCode != null">
+                #{ accountCode },
+            </if>
+            <if test="userName != null">
+                #{ userName },
+            </if>
+            <if test="password != null">
+                #{ password },
+            </if>
+            <if test="isDelete != null">
+                #{ isDelete },
+            </if>
+        </trim>
+    </insert>
+
     <update id="update" parameterType="xyz.greatinvincible.entity.User">
         update tb_user
-        set username = #{ userName }
+        <set>
+            <if test=" userName  != null">
+                username = #{ userName },
+            </if>
+            <if test="password != null">
+                password = #{ password },
+            </if>
+        </set>
         where account_code = #{ accountCode }
     </update>
+
+    <delete id="delete" parameterType="String">
+        delete from tb_user
+        where account_code = #{ accountCode }
+    </delete>
 
 </mapper>

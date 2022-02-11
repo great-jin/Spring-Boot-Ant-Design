@@ -12,6 +12,9 @@ import java.util.Date;
 public class MySchedule {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
+    /**
+     * 定时任务，每五秒打印一次时间
+     */
     @Scheduled(fixedRate = 5000)
     public void reportCurrentTime() {
         log.info("现在时间：" + dateFormat.format(new Date()));

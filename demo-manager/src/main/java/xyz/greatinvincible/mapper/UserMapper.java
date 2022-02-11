@@ -12,8 +12,12 @@ public interface UserMapper {
 
     User get(String code);
 
-    User getUserByCode(User user);
+    User getUser(User user);
+
+    int insert(User user);
 
     int update(User user);
+
+    int delete(String code);
 
 }

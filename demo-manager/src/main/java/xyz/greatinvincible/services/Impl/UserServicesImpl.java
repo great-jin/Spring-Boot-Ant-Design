@@ -23,21 +23,34 @@ public class UserServicesImpl implements UserServices {
         return userMapper.list();
     }
 
+    /**
+     * Redis缓存禁止空值时添加指令
+     * unless="#result == null"
+     */
     @Override
     @Cacheable(key = "#code")
-    // 禁止空值时处理： unless="#result == null"
     public User get(String code) {
         return userMapper.get(code);
     }
 
     @Override
     @Cacheable(key = "#user.ID")
-    public User getByCode(User user) {
-        return userMapper.getUserByCode(user);
+    public User getUser(User user) {
+        return userMapper.getUser(user);
     }
 
     @Override
-    public int updateUser(User user) {
+    public int add(User user) {
+        return userMapper.insert(user);
+    }
+
+    @Override
+    public int update(User user) {
         return userMapper.update(user);
+    }
+
+    @Override
+    public int delete(String code) {
+        return userMapper.delete(code);
     }
 }

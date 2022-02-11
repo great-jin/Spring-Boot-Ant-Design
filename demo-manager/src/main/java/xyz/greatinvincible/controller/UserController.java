@@ -1,5 +1,6 @@
 package xyz.greatinvincible.controller;
 
+import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xyz.greatinvincible.entity.User;
@@ -18,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public User getUser(@RequestParam String code){
+    public User get(@RequestParam String code){
         User user = userServices.get(code);
         if (user == null) {
             user = new User();
@@ -26,23 +27,39 @@ public class UserController {
         return user;
     }
 
+    @PostMapping("/add")
+    public int add(@RequestBody User user){
+        user.setIsDelete(0);
+        return userServices.add(user);
+    }
+
     @PostMapping("/update")
-    public int updateUser(@RequestBody User user){
-        int i = 0 ;
-        i = userServices.updateUser(user);
-        return i;
+    public int update(@RequestBody User user){
+        return userServices.update(user);
+    }
+
+    @PostMapping("/delete")
+    public int delete(@Param("code") String code){
+        return userServices.delete(code);
     }
 
     @PostMapping("/login")
     public int Login(@RequestBody User user){
         int flag = 0 ;
-        User user_login = userServices.getByCode(user);
-        if (user_login != null){
-            if (user.getUserName().equals(user_login.getUserName()) && user.getPassword().equals(user_login.getPassword())){
+        String userName = user.getUserName();
+        String password = user.getPassword();
+
+        User loginUser = userServices.getUser(user);
+
+        String loginUserName = loginUser.getUserName();
+        String loginPassword = loginUser.getPassword();
+
+        if (loginUser != null){
+            if (userName.equals(loginUserName) && password.equals(loginPassword)){
                 flag = 1;
             }
             else {
-                flag = 0;
+                flag = 2;
             }
         } else {
             flag = 0;
