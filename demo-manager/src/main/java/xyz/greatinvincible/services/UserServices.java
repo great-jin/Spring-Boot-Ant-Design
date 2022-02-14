@@ -19,13 +19,6 @@ public interface UserServices {
     User get(String code);
 
     /**
-     * Author:Budai 2021/12/31 19:40
-     * @param user
-     * @return User
-     */
-    User getUser(User user);
-
-    /**
      * Author:Budai 2022/2/11 20:39
      * @param user
      * @return int

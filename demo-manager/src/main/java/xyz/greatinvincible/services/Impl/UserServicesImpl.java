@@ -35,17 +35,11 @@ public class UserServicesImpl implements UserServices {
         return userMapper.get(code);
     }
 
-    @Override
-    @Cacheable(key = "#user.accountCode")
-    public User getUser(User user) {
-        return userMapper.getUser(user);
-    }
-
     /**
      * 新增用户后清除缓存中的列表数据
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @CacheEvict(key = "'user'")
     public int add(User user) {
         return userMapper.insert(user);
     }
@@ -68,7 +62,11 @@ public class UserServicesImpl implements UserServices {
      * 删除用户后清除缓存中的列表数据
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#user.accountCode")
+    }
+    )
     public int delete(String code) {
         return userMapper.delete(code);
     }

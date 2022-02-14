@@ -47,7 +47,7 @@ public class UserController {
         String userName = user.getUserName();
         String password = user.getPassword();
 
-        User loginUser = userServices.getUser(user);
+        User loginUser = userServices.get(user.getAccountCode());
         String loginUserName = loginUser.getUserName();
         String loginPassword = loginUser.getPassword();
 

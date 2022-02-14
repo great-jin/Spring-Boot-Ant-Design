@@ -5,6 +5,7 @@
     <a-button @click="remove()">Delete</a-button>
 
     <a-input v-model="backResult" placeholder="Result" disabled="disabled" style="margin-top: 10px"/>
+
     <a-form :form="form">
       <a-form-item>
           <a-input
@@ -33,6 +34,10 @@
         <a-button @click="clear()">Clear</a-button>
       </a-form-item>
     </a-form>
+
+    <div>
+      <a-button></a-button>
+    </div>
 
   </div>
 </template>
@@ -73,13 +78,13 @@ export default {
             console.log(res)
             switch (res) {
               case 1 :
-                this.backResult = '新增成功'
+                this.$message.success('新增成功')
                 break
               case 2 :
-                this.backResult = '账号重复'
+                this.$message.error('账号重复')
                 break
               case 0 :
-                this.backResult = '新增失败'
+                this.$message.error('新增失败')
                 break
             }
           })
@@ -92,9 +97,9 @@ export default {
           updateUser(values).then(res =>{
             console.log(res)
             if (res === 1){
-              this.backResult = '更新成功'
+              this.$message.success('更新成功')
             } else {
-              this.backResult = '更新失败'
+              this.$message.error('更新失败')
             }
           })
         }
@@ -107,13 +112,13 @@ export default {
             console.log(res)
             switch (res) {
               case 1 :
-                this.backResult = '登录成功'
+                this.$message.success('登录成功')
                 break
               case 2 :
-                this.backResult = '账号密码错误'
+                this.$message.error('账号密码错误')
                 break
               case 0 :
-                this.backResult = '登录失败'
+                this.$message.error('登录失败')
                 break
             }
           })
@@ -126,13 +131,13 @@ export default {
       if(code !== '') {
         deleteUser(code).then(res =>{
           if (res === 1){
-            this.backResult = '删除成功'
+            this.$message.success('删除成功')
           } else {
-            this.backResult = '删除失败'
+            this.$message.error('删除失败')
           }
         })
       } else {
-        this.$message.error('不能为空')
+        this.$message.error('账号不能为空')
       }
     },
     clear() {
