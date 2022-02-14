@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <a-input v-model="accountCode" placeholder="Account Code" style="margin-bottom: 10px"/>
+    <a-input v-model="backResult" placeholder="Result" disabled="disabled" style="margin-bottom: 10px"/>
     <a-button @click="get()" style="margin-right: 120px">Get</a-button>
     <a-button @click="remove()">Delete</a-button>
-    <a-input v-model="backResult" placeholder="Result" disabled="disabled" style="margin-top: 10px"/>
 
     <a-form :form="form">
       <a-form-item>
@@ -35,7 +35,9 @@
     </a-form>
 
     <div>
-      <a-button></a-button>
+      <router-link to='../page/index'>
+        <a-button>Page</a-button>
+      </router-link>
     </div>
 
   </div>

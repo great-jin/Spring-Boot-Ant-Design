@@ -4,7 +4,6 @@ import Vue from 'vue'
 import router from './router'
 import Index from './views/index'
 
-// 引入ant design
 // npm i --save ant-design-vue
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
