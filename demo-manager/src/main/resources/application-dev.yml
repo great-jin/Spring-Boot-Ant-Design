@@ -37,6 +37,17 @@ spring:
         max-wait: -1ms
         min-idle: 0
       shutdown-timeout: 100ms
+  # 邮件配置
+  mail:
+    host: smtp.163.com
+    username: great__jin@163.com
+    password: xxxxxxx
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+          starttls.required: true
 
 # 绑定mybatis
 mybatis:
@@ -52,3 +63,4 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
