@@ -20,6 +20,7 @@ public class MailController {
         message.setTo(mail.getTarget());
         message.setSubject(mail.getSubject());
         message.setText(mail.getMessage());
+
         mailSender.send(message);
     }
 }

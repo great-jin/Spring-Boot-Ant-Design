@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 @Service
 public class RedisSubscriber {
+
     private static String CHANNEL = "budai";
 
     private RedisTemplate<String, String> redisTemplate;

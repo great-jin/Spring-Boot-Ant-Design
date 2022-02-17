@@ -10,6 +10,7 @@ import java.util.Date;
 @Slf4j
 @Component
 public class MySchedule {
+
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     /**

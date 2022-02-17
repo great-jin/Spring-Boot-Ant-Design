@@ -39,7 +39,7 @@ public class UserServicesImpl implements UserServices {
      * 新增用户后清除缓存中的列表数据
      */
     @Override
-    @CacheEvict(key = "'user'")
+    @CacheEvict(key = "'list'")
     public int add(User user) {
         return userMapper.insert(user);
     }
