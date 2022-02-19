@@ -1,21 +1,37 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+import Home from '@/components/home'
+import User from '@/views/user/index'
 import Page from '@/views/page/index'
 import Table from '@/views/table/index'
+import Modal from '@/views/modal/index'
 
 Vue.use(Router)
 
 export default new Router({
-  mode:'history',
+  mode: 'history',
   routes: [
     {
-      path: '/'
+      path: '/',
+      name: 'Home',
+      component: Home
     },{
       path: '/page',
-      components: Page
+      name: 'Page',
+      component: Page
     },{
       path: '/table',
-      components: Table
+      name: 'Table',
+      component: Table
+    },{
+      path: '/user',
+      name: 'User',
+      component: User
+    },{
+      path: '/modal',
+      name: 'Modal',
+      component: Modal
     }
   ]
 })
