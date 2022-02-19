@@ -1,7 +1,19 @@
 <template>
   <div id="app">
+    <div class="trans">
+      <router-link to='/table' style="margin-right: 60px">
+        <a-button>Table</a-button>
+      </router-link>
+      <router-link to='/page'>
+        <a-button>Second Page</a-button>
+      </router-link>
+    </div>
+
     <a-input v-model="accountCode" placeholder="Account Code" style="margin-bottom: 10px"/>
-    <a-input v-model="backResult" placeholder="Result" disabled="disabled" style="margin-bottom: 10px"/>
+    <textarea v-model="backResult"
+              placeholder="Result"
+              disabled="disabled"
+              style="width:500px; height: 100px; margin-bottom: 5px"/>
     <a-button @click="get()" style="margin-right: 120px">Get</a-button>
     <a-button @click="remove()">Delete</a-button>
 
@@ -33,18 +45,13 @@
         <a-button @click="clear()">Clear</a-button>
       </a-form-item>
     </a-form>
-
-    <router-link to='/page/index'>
-      <a-button>Page</a-button>
-    </router-link>
-
   </div>
 </template>
 
 <script>
 import { List, Login, getUser, addUser, updateUser, deleteUser} from '@/api/user.js';
 export default {
-  name: 'Index',
+  name: 'Home',
   data() {
     return {
       backResult: '',
@@ -55,26 +62,14 @@ export default {
   methods: {
     list() {
       List().then(res =>{
-        console.log(res)
+        this.$message.success('获取成功')
         this.backResult = res
       })
-    },
-    get() {
-      const code = this.accountCode
-      console.log(code)
-      if(code !== '') {
-        getUser(code).then(res =>{
-          this.backResult = res
-        })
-      } else {
-        this.$message.error('不能为空')
-      }
     },
     add() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
           addUser(values).then(res =>{
-            console.log(res)
             switch (res) {
               case 1 :
                 this.$message.success('新增成功')
@@ -88,13 +83,13 @@ export default {
             }
           })
         }
+        this.clear()
       })
     },
     update() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
           updateUser(values).then(res =>{
-            console.log(res)
             if (res === 1){
               this.$message.success('更新成功')
             } else {
@@ -102,13 +97,13 @@ export default {
             }
           })
         }
+        this.clear()
       })
     },
     login() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
           Login(values).then(res =>{
-            console.log(res)
             switch (res) {
               case 1 :
                 this.$message.success('登录成功')
@@ -122,17 +117,35 @@ export default {
             }
           })
         }
+        this.clear()
       })
+    },
+    get() {
+      const code = this.accountCode
+      if(code !== '') {
+        getUser(code).then(res =>{
+          if (res === '用户不存在' ) {
+            this.$message.error('用户不存在')
+          } else {
+            this.$message.success('获取成功')
+            this.accountCode = ''
+          }
+          this.backResult = res
+        })
+      } else {
+        this.$message.error('不能为空')
+      }
     },
     remove() {
       const code = this.accountCode
-      console.log(code)
       if(code !== '') {
         deleteUser(code).then(res =>{
           if (res === 1){
             this.$message.success('删除成功')
+            this.accountCode = ''
           } else {
             this.$message.error('删除失败')
+            this.accountCode = ''
           }
         })
       } else {
@@ -152,5 +165,8 @@ export default {
     margin: 20px auto;
     text-align: center;
     color: #2c3e50;
+  }
+  .trans{
+    margin-bottom: 15px;
   }
 </style>

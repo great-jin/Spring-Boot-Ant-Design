@@ -24,7 +24,7 @@ public class UserController {
     public String get(@RequestParam String code){
         User user = userServices.get(code);
         if (user == null) {
-            user = new User();
+            return "用户不存在";
         }
         return user.toString();
     }

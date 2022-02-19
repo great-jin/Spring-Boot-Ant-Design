@@ -8,6 +8,7 @@ import xyz.greatinvincible.interceptor.LoginInterceptor;
 @Configuration
 public class LoginAppConfig implements WebMvcConfigurer {
 
+    /*
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LoginInterceptor loginInterceptor = new LoginInterceptor();
@@ -16,6 +17,7 @@ public class LoginAppConfig implements WebMvcConfigurer {
         String[] excludePath = {"/users/list"};
         registry.addInterceptor(loginInterceptor).addPathPatterns(path).excludePathPatterns(excludePath);
     }
+    */
 
 }
 
