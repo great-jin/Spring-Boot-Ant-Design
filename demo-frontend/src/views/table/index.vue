@@ -10,6 +10,10 @@
       <span v-else><a-tag >注销</a-tag></span>
     </template>
 
+    <template slot="operation" slot-scope="text">
+      <span><a-button type="primary">修改</a-button></span>
+    </template>
+
   </a-table>
 </template>
 
@@ -25,16 +29,14 @@ export default {
     }
   },
   created() {
-    /*
     // 后端数据库
     List().then(res =>{
       for(let i in res){
         this.data.push(res[i])
       }
     })
-    */
     // 测试数据
-    this.data = tableData
+    // this.data = tableData
     this.columns = tableColumns
   }
 }
