@@ -54,7 +54,9 @@ export default {
     list() {
       List().then(res =>{
         this.$message.success('获取成功')
-        this.backResult = res
+        const resJson = JSON.stringify(res)
+        console.log(resJson)
+        this.backResult = resJson
       })
     },
     add() {

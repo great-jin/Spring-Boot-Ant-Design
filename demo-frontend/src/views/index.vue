@@ -9,9 +9,6 @@
       <router-link to="/user" style="margin-right: 20px">
         <a-button>User</a-button>
       </router-link>
-      <router-link to="/page" style="margin-right: 20px">
-        <a-button>Page</a-button>
-      </router-link>
       <router-link to="/table" style="margin-right: 20px">
         <a-button>Table</a-button>
       </router-link>
@@ -32,7 +29,7 @@ export default {
 
 <style scoped>
   #app {
-    width: 500px;
+    width: 1000px;
     margin: 20px auto;
     text-align: center;
     color: #2c3e50;
