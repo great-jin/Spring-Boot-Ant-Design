@@ -1,27 +1,47 @@
 <template>
-  <a-table
-    :columns="columns"
-    :data-source="data"
-    :pagination="{ pageSize: 5 }"
-    :bordered="false"
-  >
-    <template slot="status" slot-scope="text">
-      <span v-if="text === 0"><a-tag  color="cyan">在线</a-tag></span>
-      <span v-else><a-tag >注销</a-tag></span>
-    </template>
+  <div>
+    <div style="margin-bottom: 20px">
+      <a-button
+        type="primary"
+        @click="operationClick('add', null)"
+      >新增</a-button>
 
-    <template slot="operation" slot-scope="text">
-      <span><a-button type="primary">修改</a-button></span>
-    </template>
+      <a-input-search
+        placeholder="input search text"
+        style="width: 200px"
+        @search="onSearch()"
+      />
+    </div>
 
-  </a-table>
+    <a-table
+      :columns="columns"
+      :data-source="data"
+      :pagination="{ pageSize: 5 }"
+      :bordered="false"
+    >
+      <template slot="status" slot-scope="text">
+        <span v-if="text === 0"><a-tag  color="cyan">在线</a-tag></span>
+        <span v-else><a-tag >注销</a-tag></span>
+      </template>
+
+      <template slot="operation" slot-scope="text">
+        <span><a-button type="primary" @click="operationClick('edit', null)">修改</a-button></span>
+      </template>
+    </a-table>
+
+    <userModal ref="userModal"></userModal>
+  </div>
 </template>
 
 <script>
+import userModal from './userModal'
 import { List } from '@/api/user.js';
 import { tableColumns, tableData } from "./const";
 
 export default {
+  components: {
+    userModal
+  },
   data() {
     return {
       data: [],
@@ -38,6 +58,23 @@ export default {
     // 测试数据
     // this.data = tableData
     this.columns = tableColumns
+  },
+  methods: {
+    onSearch() {
+
+    },
+    async operationClick (type, record) {
+      switch (type) {
+        case 'add':
+          console.log('add')
+          this.$refs.userModal.paramReceive(type, record, false)
+          break
+        case 'edit':
+          console.log('edit')
+          this.$refs.userModal.paramReceive(type, record, false)
+          break
+      }
+    }
   }
 }
 </script>

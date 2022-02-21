@@ -12,9 +12,6 @@
       <router-link to="/table" style="margin-right: 20px">
         <a-button>Table</a-button>
       </router-link>
-      <router-link to="/modal" style="margin-bottom: 20px">
-        <a-button>Modal</a-button>
-      </router-link>
     </div>
 
     <router-view />

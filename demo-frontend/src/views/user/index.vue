@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-    <a-input v-model="accountCode" placeholder="Account Code" style="margin-bottom: 10px"/>
-    <textarea v-model="backResult"
-              placeholder="Result"
-              disabled="disabled"
-              style="width:500px; height: 100px; margin-bottom: 5px"/>
-    <a-button @click="get()" style="margin-right: 120px">Get</a-button>
-    <a-button @click="remove()">Delete</a-button>
+    <div style="margin-bottom: 50px">
+      <a-input v-model="accountCode" placeholder="Account Code" style="margin-bottom: 10px"/>
+      <textarea v-model="backResult"
+                placeholder="Result"
+                disabled="disabled"
+                style="width:1000px; height: 100px; margin-bottom: 5px"/>
+      <a-button @click="get()" style="margin-right: 250px">Get</a-button>
+      <a-button @click="remove()">Delete</a-button>
+    </div>
 
     <a-form :form="form">
       <a-form-item>
@@ -29,9 +31,9 @@
       </a-form-item>
 
       <a-form-item>
-        <a-button @click="list()" style="margin-right: 5px">List</a-button>
-        <a-button @click="add()" style="margin-right: 5px">Add</a-button>
-        <a-button @click="login()" style="margin-right: 5px">Login</a-button>
+        <a-button @click="list()" style="margin-right: 100px">List</a-button>
+        <a-button @click="add()" style="margin-right: 100px">Add</a-button>
+        <a-button @click="login()" style="margin-right: 100px">Login</a-button>
         <a-button @click="update()" style="margin-right: 100px">Update</a-button>
         <a-button @click="clear()">Clear</a-button>
       </a-form-item>
@@ -154,7 +156,7 @@ export default {
 
 <style scoped>
   #app {
-    width: 500px;
+    width: 1000px;
     margin: 20px auto;
     text-align: center;
     color: #2c3e50;
