@@ -3,6 +3,7 @@
     <div style="margin-bottom: 20px">
       <a-button
         type="primary"
+        style="margin-right: 720px"
         @click="operationClick('add', null)"
       >新增</a-button>
 
@@ -25,6 +26,7 @@
       </template>
 
       <template slot="operation" slot-scope="text">
+        <span><a-button type="primary" @click="operationClick('detail', null)">详情</a-button></span>
         <span><a-button type="primary" @click="operationClick('edit', null)">修改</a-button></span>
       </template>
     </a-table>
@@ -72,6 +74,10 @@ export default {
         case 'edit':
           console.log('edit')
           this.$refs.userModal.paramReceive(type, record, false)
+          break
+        case 'detail':
+          console.log('detail')
+          this.$refs.userModal.paramReceive(type, record, true)
           break
       }
     }

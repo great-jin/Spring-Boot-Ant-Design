@@ -12,13 +12,48 @@
         type="primary"
         :loading="confirmLoading"
         @click="ok()"
+        :hidden="isDetail"
       >确定</a-button>
     </template>
 
     <a-spin :spinning="loading">
-      <a-form-model>
-        <a-form-model-item>
-          <a-input placeholder="请输入单位名称" />
+      <a-form-model
+        ref="ruleForm"
+        :rules="rules"
+        :model="User"
+      >
+        <a-form-model-item
+          label="账号"
+          prop="accountCode"
+        >
+          <a-input
+            placeholder="Account Code"
+            v-model="User.accountCode"
+            :disabled="isDetail"
+          />
+        </a-form-model-item>
+
+        <a-form-model-item
+          label="用户名"
+          prop="userName"
+        >
+          <a-input
+            placeholder="UserName"
+            v-model="User.userName"
+            :disabled="isDetail"
+            />
+        </a-form-model-item>
+
+        <a-form-model-item
+          label="密码"
+          prop="password"
+        >
+          <a-input
+            v-model="User.password"
+            placeholder="Password"
+            :disabled="isDetail"
+            type="password"
+            />
         </a-form-model-item>
       </a-form-model>
     </a-spin>
@@ -31,26 +66,43 @@ export default {
   data() {
     return {
       type: '',
-      visible: true,
+      visible: false,
       confirmLoading: false,
-      loading: false
+      loading: false,
+      isDetail: false,
+      User: {
+        accountCode: '',
+        userName: '',
+        password: ''
+      },
+      rules: {
+        accountCode: [{ required: true, message: '账号不能输入为空' }],
+        userName: [{ required: true, message: '用户名不能输入为空' }],
+        password: [{ required: true, message: '密码不能输入为空' }]
+      }
     }
   },
   methods: {
     cancel() {
       this.visible = false
+      this.$refs.ruleForm.resetFields()
     },
     ok() {
-      this.visible = false
+      this.$refs.ruleForm.validate(valid => {
+        if (valid) {
+          console.log(this.User)
+        } else {
+          return false
+        }
+      })
     },
-    paramReceive (type, data, isSelected) {
+    paramReceive (type, data, IsDetail) {
       this.type = type
       this.visible = true
+      console.log(data)
+      this.isDetail = IsDetail
       if (this.type === 'add') {
         this.loading = false
-      }
-      if (this.type === 'detail') {
-
       }
     }
   }

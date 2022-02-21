@@ -2,7 +2,7 @@ export const tableColumns = [
   {
     title: '编号',
     dataIndex: 'id',
-    width: '15%',
+    width: '10%',
     scopedSlots: { customRender: 'id' },
   },
   {
@@ -32,7 +32,7 @@ export const tableColumns = [
   },
   {
     title: '操作',
-    width: '15%',
+    width: '20%',
     dataIndex: 'operation',
     scopedSlots: { customRender: 'operation' },
   }
