@@ -10,57 +10,44 @@
       <a-button
         key="submit"
         type="primary"
+        :hidden="isDetail"
         :loading="confirmLoading"
         @click="ok()"
-        :hidden="isDetail"
       >确定</a-button>
     </template>
 
     <a-spin :spinning="loading">
-      <a-form-model
-        ref="ruleForm"
-        :rules="rules"
-        :model="User"
-      >
-        <a-form-model-item
-          label="账号"
-          prop="accountCode"
-        >
+      <a-form :form="form">
+        <a-form-item label="账号">
           <a-input
             placeholder="Account Code"
-            v-model="User.accountCode"
-            :disabled="isDetail"
+            :disabled="isDetail || isEdit"
+            v-decorator="['accountCode', { rules: [{ required: true, message: '账号不能为空!' }] }]"
           />
-        </a-form-model-item>
+        </a-form-item>
 
-        <a-form-model-item
-          label="用户名"
-          prop="userName"
-        >
+        <a-form-item label="用户名">
           <a-input
             placeholder="UserName"
-            v-model="User.userName"
             :disabled="isDetail"
+            v-decorator="['userName', { rules: [{ required: true, message: '用户名不能为空!' }] }]"
             />
-        </a-form-model-item>
+        </a-form-item>
 
-        <a-form-model-item
-          label="密码"
-          prop="password"
-        >
+        <a-form-item label="密码">
           <a-input
-            v-model="User.password"
             placeholder="Password"
             :disabled="isDetail"
-            type="password"
+            v-decorator="['password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
             />
-        </a-form-model-item>
-      </a-form-model>
+        </a-form-item>
+      </a-form>
     </a-spin>
   </a-modal>
 </template>
 
 <script>
+import { getUser, addUser, updateUser} from '@/api/user.js';
 export default {
   name: "UserModal",
   data() {
@@ -70,39 +57,65 @@ export default {
       confirmLoading: false,
       loading: false,
       isDetail: false,
-      User: {
-        accountCode: '',
-        userName: '',
-        password: ''
-      },
-      rules: {
-        accountCode: [{ required: true, message: '账号不能输入为空' }],
-        userName: [{ required: true, message: '用户名不能输入为空' }],
-        password: [{ required: true, message: '密码不能输入为空' }]
-      }
+      isEdit: false,
+      form: this.$form.createForm(this)
     }
   },
   methods: {
     cancel() {
       this.visible = false
-      this.$refs.ruleForm.resetFields()
+      this.form.resetFields()
     },
     ok() {
-      this.$refs.ruleForm.validate(valid => {
-        if (valid) {
-          console.log(this.User)
+      this.form.validateFields((errors, values) => {
+        if (!errors) {
+          const { type } = this
+          switch (type) {
+            case 'edit':
+              updateUser(values).then(res =>{
+                if (res === 1){
+                  this.$message.success('更新成功')
+                } else {
+                  this.$message.error('更新失败')
+                }
+              })
+              break
+          }
         } else {
           return false
         }
       })
     },
-    paramReceive (type, data, IsDetail) {
+    paramReceive (type, data) {
       this.type = type
       this.visible = true
-      console.log(data)
-      this.isDetail = IsDetail
+      this.loading = false
       if (this.type === 'add') {
-        this.loading = false
+        this.isDetail = false
+        this.isEdit = false
+      }
+      if (this.type === 'detail') {
+        this.isDetail = true
+        this.isEdit = false
+        this.setFormValue(data)
+      }
+      if (this.type === 'edit') {
+        this.isEdit = true
+        this.isDetail = false
+        this.setFormValue(data)
+      }
+    },
+    setFormValue(data) {
+      const code = data
+      if(code !== '') {
+        getUser(code).then(res =>{
+          console.log(res)
+          this.form.setFieldsValue({
+            accountCode: res.accountCode,
+            userName: res.userName,
+            password: res.password
+          })
+        })
       }
     }
   }

@@ -21,13 +21,17 @@
       :bordered="false"
     >
       <template slot="status" slot-scope="text">
-        <span v-if="text === 0"><a-tag  color="cyan">在线</a-tag></span>
+        <span v-if="text === 0"><a-tag  color="cyan">启用</a-tag></span>
         <span v-else><a-tag >注销</a-tag></span>
       </template>
 
-      <template slot="operation" slot-scope="text">
-        <span><a-button type="primary" @click="operationClick('detail', null)">详情</a-button></span>
-        <span><a-button type="primary" @click="operationClick('edit', null)">修改</a-button></span>
+      <template slot="operation" slot-scope="text, record, index">
+        <span>
+          <a-button type="link" @click="operationClick('detail', record.key)">详情</a-button>
+        </span>
+        <span>
+          <a-button type="link" @click="operationClick('edit', record.key)">修改</a-button>
+        </span>
       </template>
     </a-table>
 
@@ -54,7 +58,14 @@ export default {
     // 后端数据库
     List().then(res =>{
       for(let i in res){
-        this.data.push(res[i])
+        this.data.push({
+          key: res[i].accountCode,
+          id: res[i].id,
+          accountCode: res[i].accountCode,
+          userName: res[i].userName,
+          password: res[i].password,
+          isDelete: res[i].isDelete
+        });
       }
     })
     // 测试数据
@@ -73,11 +84,11 @@ export default {
           break
         case 'edit':
           console.log('edit')
-          this.$refs.userModal.paramReceive(type, record, false)
+          this.$refs.userModal.paramReceive(type, record)
           break
         case 'detail':
           console.log('detail')
-          this.$refs.userModal.paramReceive(type, record, true)
+          this.$refs.userModal.paramReceive(type, record)
           break
       }
     }
