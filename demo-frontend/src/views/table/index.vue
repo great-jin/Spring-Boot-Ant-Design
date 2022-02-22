@@ -26,12 +26,8 @@
       </template>
 
       <template slot="operation" slot-scope="text, record, index">
-        <span>
-          <a-button type="link" @click="operationClick('detail', record.key)">详情</a-button>
-        </span>
-        <span>
-          <a-button type="link" @click="operationClick('edit', record.key)">修改</a-button>
-        </span>
+        <a-button type="link" @click="operationClick('detail', record.key)">详情</a-button>
+        <a-button type="link" @click="operationClick('edit', record.key)">修改</a-button>
       </template>
     </a-table>
 

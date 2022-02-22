@@ -18,7 +18,11 @@
 
     <a-spin :spinning="loading">
       <a-form :form="form">
-        <a-form-item label="账号">
+        <a-form-item
+          label="账号"
+          :label-col="formItemLayout.labelCol"
+          :wrapper-col="formItemLayout.wrapperCol"
+        >
           <a-input
             placeholder="Account Code"
             :disabled="isDetail || isEdit"
@@ -26,7 +30,11 @@
           />
         </a-form-item>
 
-        <a-form-item label="用户名">
+        <a-form-item
+          label="用户名"
+          :label-col="formItemLayout.labelCol"
+          :wrapper-col="formItemLayout.wrapperCol"
+        >
           <a-input
             placeholder="UserName"
             :disabled="isDetail"
@@ -34,7 +42,11 @@
             />
         </a-form-item>
 
-        <a-form-item label="密码">
+        <a-form-item
+          label="密码"
+          :label-col="formItemLayout.labelCol"
+          :wrapper-col="formItemLayout.wrapperCol"
+        >
           <a-input
             placeholder="Password"
             :disabled="isDetail"
@@ -58,12 +70,18 @@ export default {
       loading: false,
       isDetail: false,
       isEdit: false,
-      form: this.$form.createForm(this)
+      form: this.$form.createForm(this),
+      formItemLayout: {
+        labelCol: { span: 7 },
+        wrapperCol: { span: 14 }
+      },
     }
   },
   methods: {
     cancel() {
       this.visible = false
+      this.isDetail = false
+      this.isEdit = false
       this.form.resetFields()
     },
     ok() {
@@ -91,17 +109,13 @@ export default {
       this.visible = true
       this.loading = false
       if (this.type === 'add') {
-        this.isDetail = false
-        this.isEdit = false
       }
       if (this.type === 'detail') {
         this.isDetail = true
-        this.isEdit = false
         this.setFormValue(data)
       }
       if (this.type === 'edit') {
         this.isEdit = true
-        this.isDetail = false
         this.setFormValue(data)
       }
     },
@@ -123,5 +137,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
