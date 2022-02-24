@@ -12,6 +12,9 @@
       <router-link to="/table" style="margin-right: 20px">
         <a-button>Table</a-button>
       </router-link>
+      <router-link to="/file" style="margin-right: 20px">
+        <a-button>Upload</a-button>
+      </router-link>
     </div>
 
     <router-view />

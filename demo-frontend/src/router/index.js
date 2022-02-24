@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Home from '@/components/home'
 import User from '@/views/user/index'
 import Table from '@/views/table/index'
+import File from '@/views/upload/index'
 
 Vue.use(Router)
 
@@ -22,6 +23,10 @@ export default new Router({
       path: '/user',
       name: 'User',
       component: User
+    },{
+      path: '/file',
+      name: 'File',
+      component: File
     }
   ]
 })
