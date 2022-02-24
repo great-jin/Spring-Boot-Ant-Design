@@ -74,7 +74,7 @@ export default {
       formItemLayout: {
         labelCol: { span: 7 },
         wrapperCol: { span: 14 }
-      },
+      }
     }
   },
   methods: {
@@ -83,12 +83,28 @@ export default {
       this.isDetail = false
       this.isEdit = false
       this.form.resetFields()
+      this.$parent.refresh()
     },
     ok() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
           const { type } = this
           switch (type) {
+            case 'add':
+              addUser(values).then(res =>{
+                switch (res) {
+                  case 1 :
+                    this.$message.success('新增成功')
+                    break
+                  case 2 :
+                    this.$message.error('账号重复')
+                    break
+                  case 0 :
+                    this.$message.error('新增失败')
+                    break
+                }
+              })
+              break
             case 'edit':
               updateUser(values).then(res =>{
                 if (res === 1){
@@ -103,6 +119,7 @@ export default {
           return false
         }
       })
+      this.cancel()
     },
     paramReceive (type, data) {
       this.type = type

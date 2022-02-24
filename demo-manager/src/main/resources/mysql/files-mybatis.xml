@@ -1,6 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.greatinvincible.mapper.UserMapper">
 
-<configuration>
+    <resultMap type="xyz.greatinvincible.entity.Files" id="fileResult">
+        <id property="ID" column="id" />
+        <result property="accountCode" column="account_code"/>
+        <result property="fileName" column="file_name"/>
+        <result property="inTime" column="in_time"/>
+        <result property="minioBucket" column="minio_bucket"/>
+        <result property="minioPath" column="minio_path"/>
+    </resultMap>
 
-</configuration>
+</mapper>

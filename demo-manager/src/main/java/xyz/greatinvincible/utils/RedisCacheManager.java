@@ -29,6 +29,9 @@ public class RedisCacheManager {
 
     }
 
+    /**
+     * 删除数据
+     */
     public void Delete(String key) {
         redisTemplate.opsForValue().getOperations().delete(key);
     }

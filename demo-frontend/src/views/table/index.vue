@@ -72,8 +72,14 @@ export default {
     onSearch() {
 
     },
+    async refresh () {
+      await this.operationClick('reset')
+    },
     async operationClick (type, record) {
       switch (type) {
+        case 'reset':
+          this.created()
+          break
         case 'add':
           console.log('add')
           this.$refs.userModal.paramReceive(type, record, false)

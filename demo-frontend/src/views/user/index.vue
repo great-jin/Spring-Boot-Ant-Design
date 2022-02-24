@@ -6,36 +6,46 @@
                 placeholder="Result"
                 disabled="disabled"
                 style="width:1000px; height: 100px; margin-bottom: 5px"/>
-      <a-button @click="get()" style="margin-right: 250px">Get</a-button>
+      <a-button @click="get()" style="margin-right: 100px;">Get</a-button>
+      <a-button @click="list()" style="margin-right: 100px">List</a-button>
       <a-button @click="remove()">Delete</a-button>
     </div>
 
     <a-form :form="form">
-      <a-form-item>
+      <a-form-item
+        label="账号"
+        :label-col="formItemLayout.labelCol"
+        :wrapper-col="formItemLayout.wrapperCol"
+      >
         <a-input
-          placeholder="Account Code"
+          placeholder="Please input account"
           v-decorator="['accountCode', { rules: [{ required: true, message: '账号不能为空!' }] }]"
         />
       </a-form-item>
-      <a-form-item>
+      <a-form-item
+        label="用户名"
+        :label-col="formItemLayout.labelCol"
+        :wrapper-col="formItemLayout.wrapperCol"
+      >
         <a-input
-          placeholder="UserName"
+          placeholder="Please input user name"
           v-decorator="['userName', { rules: [{ required: true, message: '用户名不能为空!' }] }]"
         />
       </a-form-item>
-      <a-form-item>
+      <a-form-item
+        label="密码"
+        :label-col="formItemLayout.labelCol"
+        :wrapper-col="formItemLayout.wrapperCol"
+      >
         <a-input
-          placeholder="Password"
+          placeholder="Please input password"
           v-decorator="['password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
         />
       </a-form-item>
 
       <a-form-item>
-        <a-button @click="list()" style="margin-right: 100px">List</a-button>
-        <a-button @click="add()" style="margin-right: 100px">Add</a-button>
-        <a-button @click="login()" style="margin-right: 100px">Login</a-button>
-        <a-button @click="update()" style="margin-right: 100px">Update</a-button>
-        <a-button @click="clear()">Clear</a-button>
+        <a-button type="primary" @click="login()" style="margin-right: 100px">Login</a-button>
+        <a-button type="primary" @click="clear()">Clear</a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -49,7 +59,11 @@ export default {
     return {
       backResult: '',
       accountCode: '',
-      form: this.$form.createForm(this)
+      form: this.$form.createForm(this),
+      formItemLayout: {
+      labelCol: { span: 7 },
+      wrapperCol: { span: 14 }
+    }
     }
   },
   methods: {

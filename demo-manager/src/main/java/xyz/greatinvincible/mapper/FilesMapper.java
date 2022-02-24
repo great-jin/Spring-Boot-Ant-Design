@@ -1,4 +1,7 @@
 package xyz.greatinvincible.mapper;
 
-public class FilesMapper {
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface FilesMapper {
 }
