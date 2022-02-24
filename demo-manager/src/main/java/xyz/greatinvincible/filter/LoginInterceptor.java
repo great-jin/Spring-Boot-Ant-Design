@@ -1,4 +1,4 @@
-package xyz.greatinvincible.interceptor;
+package xyz.greatinvincible.filter;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

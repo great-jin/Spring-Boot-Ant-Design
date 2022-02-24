@@ -1,4 +1,4 @@
-package xyz.greatinvincible.utils;
+package xyz.greatinvincible.config;
 
 import java.time.Duration;
 import org.springframework.cache.CacheManager;

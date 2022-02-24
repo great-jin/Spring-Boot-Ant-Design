@@ -1,12 +1,12 @@
-package xyz.greatinvincible.utils;
+package xyz.greatinvincible.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import xyz.greatinvincible.interceptor.LoginInterceptor;
+import xyz.greatinvincible.filter.LoginInterceptor;
 
 @Configuration
-public class LoginAppConfig implements WebMvcConfigurer {
+public class LoginFilterConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
