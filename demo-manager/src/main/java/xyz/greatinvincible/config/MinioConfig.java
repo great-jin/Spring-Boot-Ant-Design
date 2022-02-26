@@ -15,7 +15,7 @@ public class MinioConfig {
     private MinioProp minioProp;
 
     /**
-     * 获取MinioClient
+     * 初始化 Minio 对象
      */
     @Bean
     public MinioClient minioClient() {

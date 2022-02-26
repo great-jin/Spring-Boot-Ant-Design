@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { UploadFile } from '@/api/files.js';
 export default {
   data() {
     return {
@@ -43,28 +44,21 @@ export default {
       });
       this.uploading = true;
 
-      /*
-      // You can use any AJAX library you like
-      reqwest({
-        url: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-        method: 'post',
-        processData: false,
-        data: formData,
-        success: () => {
+      UploadFile(formData).then(res => {
+        console.log(res)
+        if (res) {
           this.fileList = [];
           this.uploading = false;
           this.$message.success('upload successfully.');
-        },
-        error: () => {
+        } else {
           this.uploading = false;
           this.$message.error('upload failed.');
-        },
-      });*/
+        }
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-
 </style>
