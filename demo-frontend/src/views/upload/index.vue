@@ -40,19 +40,18 @@ export default {
       const { fileList } = this;
       const formData = new FormData();
       fileList.forEach(file => {
-        formData.append('files[]', file);
+        formData.append('files', file);
       });
       this.uploading = true;
 
       UploadFile(formData).then(res => {
-        console.log(res)
         if (res) {
           this.fileList = [];
           this.uploading = false;
-          this.$message.success('upload successfully.');
+          this.$message.success('上传成功');
         } else {
           this.uploading = false;
-          this.$message.error('upload failed.');
+          this.$message.error('上传失败');
         }
       })
     }

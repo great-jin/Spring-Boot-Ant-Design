@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="xyz.greatinvincible.mapper.UserMapper">
+<mapper namespace="xyz.greatinvincible.mapper.FilesMapper">
 
     <resultMap type="xyz.greatinvincible.entity.Files" id="fileResult">
         <id property="ID" column="id" />
@@ -12,5 +12,43 @@
         <result property="minioBucket" column="minio_bucket"/>
         <result property="minioPath" column="minio_path"/>
     </resultMap>
+
+    <insert id="add" parameterType="xyz.greatinvincible.entity.Files">
+        insert into tb_files
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accountCode != null">
+                account_code,
+            </if>
+            <if test="fileName != null">
+                file_name,
+            </if>
+            <if test="inTime != null">
+                in_time,
+            </if>
+            <if test="minioBucket != null">
+                minio_bucket,
+            </if>
+            <if test="minioPath != null">
+                minio_path,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="accountCode != null">
+                #{accountCode},
+            </if>
+            <if test="fileName != null">
+                #{fileName},
+            </if>
+            <if test="inTime != null">
+                #{inTime},
+            </if>
+            <if test="minioBucket != null">
+                #{minioBucket},
+            </if>
+            <if test="minioPath != null">
+                #{minioPath},
+            </if>
+        </trim>
+    </insert>
 
 </mapper>

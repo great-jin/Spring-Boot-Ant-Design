@@ -3,7 +3,7 @@ import axios from 'axios';
 function request(axiosConfig) {
   const service = axios.create({
     baseURL: '/api',   // 设置统一的请求前缀
-    timeout: 10000,    // 设置统一的超时时长
+    timeout: 100000,    // 设置统一的超时时长
   });
 
   service.interceptors.request.use(config => {

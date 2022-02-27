@@ -76,27 +76,24 @@ public class MinioUtil {
     /**
      * 上传文件
      */
-    public void uploadFile(MultipartFile file, String bucketName) throws Exception {
-        // 判断文件是否为空
-        if (null == file || 0 == file.getSize()) {
-            return ;
-        }
-
-        // 拼接文件名： UUID_FileName.Suffix
+    public ObjectWriteResponse uploadFile(MultipartFile file, String bucketName) throws Exception {
+        // 拼接文件名： <UUID>_<FileName>.Suffix
         String originName = file.getOriginalFilename();
         StringBuilder fileName = new StringBuilder();
         fileName.append(UUID.randomUUID());
         fileName.append("_");
         fileName.append(originName);
-        fileName.append(originName.substring(originName.lastIndexOf(".")));
+
+        ObjectWriteResponse objectWriteResponse = null;
 
         // 上传
-        client.putObject(
+        objectWriteResponse = client.putObject(
                 PutObjectArgs.builder().bucket(bucketName)
                         .object(fileName.toString())
                         .stream(file.getInputStream(), file.getSize(), -1)
-                        .contentType(file.getContentType())
                         .build());
+
+        return objectWriteResponse;
     }
 
     /**
