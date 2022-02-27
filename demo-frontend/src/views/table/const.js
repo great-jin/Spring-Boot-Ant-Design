@@ -9,7 +9,7 @@ export const tableColumns = [
   {
     title: '账号',
     dataIndex: 'accountCode',
-    width: '20%',
+    width: '15%',
     align: 'center',
     scopedSlots: { customRender: 'accountCode' },
   },
@@ -37,7 +37,7 @@ export const tableColumns = [
   },
   {
     title: '操作',
-    width: '20%',
+    width: '25%',
     align: 'center',
     dataIndex: 'operation',
     scopedSlots: { customRender: 'operation' },

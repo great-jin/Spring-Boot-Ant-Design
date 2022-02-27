@@ -2,7 +2,7 @@
   <a-modal
     :title="type === 'add' ? '新增' : type === 'edit'? '编辑' : '详情'"
     :visible="visible"
-    width="40%"
+    width="30%"
     @cancel="cancel()">
 
     <template slot="footer">

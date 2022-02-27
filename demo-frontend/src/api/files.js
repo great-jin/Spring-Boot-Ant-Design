@@ -10,3 +10,11 @@ export function UploadFile(params) {
     }
   })
 }
+
+export function TableUpload(params) {
+  return request({
+    url: '/files/uploadFiles',
+    method: 'post',
+    data: params
+  })
+}

@@ -27,22 +27,26 @@
 
       <template slot="operation" slot-scope="text, record, index">
         <a-button type="link" @click="operationClick('detail', record.key)">详情</a-button>
+        <a-button type="link" @click="operationClick('upload', record.key)">上传</a-button>
         <a-button type="link" @click="operationClick('edit', record.key)">修改</a-button>
       </template>
     </a-table>
 
     <userModal ref="userModal"></userModal>
+    <uploadModal ref="uploadModal"></uploadModal>
   </div>
 </template>
 
 <script>
 import userModal from './userModal'
+import uploadModal from './uploadModal'
 import { List } from '@/api/user.js';
 import { tableColumns, tableData } from "./const";
 
 export default {
   components: {
-    userModal
+    userModal,
+    uploadModal
   },
   data() {
     return {
@@ -91,6 +95,10 @@ export default {
         case 'detail':
           console.log('detail')
           this.$refs.userModal.paramReceive(type, record)
+          break
+        case 'upload':
+          console.log('detail')
+          this.$refs.uploadModal.paramReceive(record)
           break
       }
     }

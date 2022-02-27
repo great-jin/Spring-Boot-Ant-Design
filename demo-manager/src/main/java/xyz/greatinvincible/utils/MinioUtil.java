@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import xyz.greatinvincible.entity.MinioRespond;
 
 @Slf4j
 @Component
@@ -76,7 +77,7 @@ public class MinioUtil {
     /**
      * 上传文件
      */
-    public ObjectWriteResponse uploadFile(MultipartFile file, String bucketName) throws Exception {
+    public MinioRespond uploadFile(MultipartFile file, String bucketName) throws Exception {
         // 拼接文件名： <UUID>_<FileName>.Suffix
         String originName = file.getOriginalFilename();
         StringBuilder fileName = new StringBuilder();
@@ -93,7 +94,9 @@ public class MinioUtil {
                         .stream(file.getInputStream(), file.getSize(), -1)
                         .build());
 
-        return objectWriteResponse;
+        MinioRespond respond = new MinioRespond(originName,
+                fileName.toString(), objectWriteResponse);
+        return respond;
     }
 
     /**
