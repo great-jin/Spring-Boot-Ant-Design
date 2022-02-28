@@ -1,5 +1,7 @@
 package xyz.greatinvincible.controller;
 
+import java.awt.print.PrinterException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -94,12 +96,19 @@ public class FilesController {
     }
 
     @PostMapping("/download")
-    public MultipartFile Download(String fileID) throws Exception {
+    public InputStream Download(String fileID) throws Exception {
         String bucketName = "webtest";
         MultipartFile multipartFile = null;
         Files file = filesService.get(fileID);
 
-        return multipartFile;
+        InputStream is = null;
+        try{
+             is = minioUtil.getObject(bucketName, file.getMinioPath());
+        } catch (Exception e){
+            is.close();
+            throw new PrinterException();
+        }
+        return is;
     }
 
 }
