@@ -24,7 +24,6 @@ export function DownloadFile(params) {
   return request({
     url: '/files/download',
     method: 'post',
-    data: params,
-    responseType: 'blob'
+    data: params
   })
 }

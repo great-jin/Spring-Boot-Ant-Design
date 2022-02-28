@@ -1,12 +1,16 @@
 package xyz.greatinvincible.controller;
 
 import java.awt.print.PrinterException;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import xyz.greatinvincible.entity.Files;
 import xyz.greatinvincible.entity.MinioRespond;
@@ -102,21 +106,39 @@ public class FilesController {
     }
 
     @PostMapping("/download")
-    public InputStream Download(@RequestParam(name = "fileID") String fileID) throws Exception {
+    public ResponseEntity<byte[]> Download(@RequestParam(name = "fileID") String fileID) throws Exception {
         String bucketName = "webtest";
         Files file = filesService.get(fileID);
 
-        InputStream is = null;
+        ResponseEntity<byte[]> responseEntity = null;
+        InputStream stream = null;
+        ByteArrayOutputStream output = null;
+
         try{
-             is = minioUtil.getObject(bucketName, file.getMinioPath());
+            stream = minioUtil.getObject(bucketName, file.getMinioPath());
+            output = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int n = 0;
+            while (-1 != (n = stream.read(buffer))) {
+                output.write(buffer, 0, n);
+            }
+            byte[] bytes = output.toByteArray();
+
+            //设置header
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("Accept-Ranges", "bytes");
+            httpHeaders.add("Content-Length", bytes.length + "");
+            httpHeaders.add("Content-disposition", "attachment; filename=" + fileID);
+            httpHeaders.add("Content-Type", "text/plain;charset=utf-8");
+            responseEntity = new ResponseEntity<byte[]>(bytes, httpHeaders, HttpStatus.CREATED);
         } catch (Exception e){
             throw new PrinterException();
         } finally {
-            if(is != null) {
-                is.close();
+            if(stream != null) {
+                stream.close();
             }
         }
-        return is;
+        return responseEntity;
     }
 
 }

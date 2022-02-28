@@ -13,16 +13,23 @@
     >
       {{ uploading ? 'Uploading' : 'Start Upload' }}
     </a-button>
+
+    <div>
+      <a-input v-model="fileID"/>
+      <a-button @click="download()">下载</a-button>
+    </div>
   </div>
+
 </template>
 
 <script>
-import { UploadFile } from '@/api/files.js';
+import { UploadFile, DownloadFile } from '@/api/files.js';
 export default {
   data() {
     return {
       fileList: [],
-      uploading: false
+      uploading: false,
+      fileID: ''
     }
   },
   methods: {
@@ -53,6 +60,13 @@ export default {
           this.uploading = false;
           this.$message.error('上传失败');
         }
+      })
+    },
+    download(){
+      const formData = new FormData()
+      formData.append("fileID", this.fileID)
+      DownloadFile(formData).then(res => {
+        console.log(res)
       })
     }
   }
