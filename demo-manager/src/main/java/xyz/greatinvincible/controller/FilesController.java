@@ -24,7 +24,7 @@ public class FilesController {
     private FilesService filesService;
 
     @PostMapping("/upload")
-    public boolean upload(@RequestParam(name = "files", required = false) MultipartFile file) {
+    public boolean Upload(@RequestParam(name = "files", required = false) MultipartFile file) {
         if(file.isEmpty()){
             return false;
         }
@@ -52,7 +52,7 @@ public class FilesController {
     }
 
     @PostMapping("/uploadFiles")
-    public boolean uploadFile(@RequestParam(name = "multipartFile") MultipartFile multipartFile,
+    public boolean UploadFile(@RequestParam(name = "multipartFile") MultipartFile multipartFile,
                               @RequestParam(name = "userID") String userID) {
         if(multipartFile.isEmpty()){
             return false;
@@ -83,9 +83,23 @@ public class FilesController {
     }
 
     @PostMapping("/delete")
-    public void delete(String objectName) throws Exception {
+    public void Delete(String fileID) throws Exception {
         String bucketName = "webtest";
-        minioUtil.removeObject(bucketName, objectName);
+        Files file = filesService.get(fileID);
+        try {
+            minioUtil.removeObject(bucketName, file.getMinioPath());
+        } catch (Exception e) {
+            log.error("失败 : [{}]", Arrays.asList(e.getStackTrace()));
+        }
+    }
+
+    @PostMapping("/download")
+    public MultipartFile Download(String fileID) throws Exception {
+        String bucketName = "webtest";
+        MultipartFile multipartFile = null;
+        Files file = filesService.get(fileID);
+
+        return multipartFile;
     }
 
 }
