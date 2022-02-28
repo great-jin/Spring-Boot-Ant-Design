@@ -105,8 +105,11 @@ public class FilesController {
         try{
              is = minioUtil.getObject(bucketName, file.getMinioPath());
         } catch (Exception e){
-            is.close();
             throw new PrinterException();
+        } finally {
+            if(is != null) {
+                is.close();
+            }
         }
         return is;
     }
