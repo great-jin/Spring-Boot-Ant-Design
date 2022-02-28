@@ -18,3 +18,13 @@ export function TableUpload(params) {
     data: params
   })
 }
+
+
+export function DownloadFile(params) {
+  return request({
+    url: '/files/download',
+    method: 'post',
+    data: params,
+    responseType: 'blob'
+  })
+}

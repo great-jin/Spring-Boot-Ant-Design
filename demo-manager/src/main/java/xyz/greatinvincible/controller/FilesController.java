@@ -4,6 +4,7 @@ import java.awt.print.PrinterException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,11 @@ public class FilesController {
 
     @Autowired
     private FilesService filesService;
+
+    @PostMapping("list")
+    public List<Files> list(){
+        return filesService.list();
+    }
 
     @PostMapping("/upload")
     public boolean Upload(@RequestParam(name = "files", required = false) MultipartFile file) {
@@ -85,7 +91,7 @@ public class FilesController {
     }
 
     @PostMapping("/delete")
-    public void Delete(String fileID) throws Exception {
+    public void Delete(@RequestParam(name = "fileID") String fileID) throws Exception {
         String bucketName = "webtest";
         Files file = filesService.get(fileID);
         try {
@@ -96,9 +102,8 @@ public class FilesController {
     }
 
     @PostMapping("/download")
-    public InputStream Download(String fileID) throws Exception {
+    public InputStream Download(@RequestParam(name = "fileID") String fileID) throws Exception {
         String bucketName = "webtest";
-        MultipartFile multipartFile = null;
         Files file = filesService.get(fileID);
 
         InputStream is = null;
