@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 数据库驱动:换成你本地的驱动包位置-->
+    <classPathEntry  location="D:\Datadevs\driver\mysql-connector-java.jar"/>
+    <context id="DB2Tables"  targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释-->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/bd_test?characterEncoding=utf8"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成实体类的包名和位置-->
+        <javaModelGenerator targetPackage="xyz.greatinvincible.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+            <property name="constructorBased" value="false"/>
+        </javaModelGenerator>
+
+        <!-- 生成 mybatis 文件的包名和位置-->
+        <sqlMapGenerator targetPackage="resources.mysql" targetProject="src/main">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成 mapper 的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="xyz.greatinvincible.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 要生成的表 tableName是数据库中的表名 domainObjectName是实体类名-->
+        <table tableName="tb_user" domainObjectName="Client"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
+
+    </context>
+
+
+</generatorConfiguration>
