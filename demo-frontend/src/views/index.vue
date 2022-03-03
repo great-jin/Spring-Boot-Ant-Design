@@ -29,7 +29,7 @@ export default {
 
 <style scoped>
   #app {
-    width: 1000px;
+    width: 70%;
     margin: 20px auto;
     text-align: center;
     color: #2c3e50;

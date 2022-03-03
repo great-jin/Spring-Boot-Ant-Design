@@ -78,6 +78,21 @@ export default {
     }
   },
   methods: {
+    paramReceive (type, data) {
+      this.type = type
+      this.visible = true
+      this.loading = false
+      if (this.type === 'add') {
+      }
+      if (this.type === 'detail') {
+        this.isDetail = true
+        this.setFormValue(data)
+      }
+      if (this.type === 'edit') {
+        this.isEdit = true
+        this.setFormValue(data)
+      }
+    },
     cancel() {
       this.visible = false
       this.isDetail = false
@@ -115,32 +130,14 @@ export default {
               })
               break
           }
-        } else {
-          return false
+          this.cancel()
         }
       })
-      this.cancel()
-    },
-    paramReceive (type, data) {
-      this.type = type
-      this.visible = true
-      this.loading = false
-      if (this.type === 'add') {
-      }
-      if (this.type === 'detail') {
-        this.isDetail = true
-        this.setFormValue(data)
-      }
-      if (this.type === 'edit') {
-        this.isEdit = true
-        this.setFormValue(data)
-      }
     },
     setFormValue(data) {
       const code = data
       if(code !== '') {
         getUser(code).then(res =>{
-          console.log(res)
           this.form.setFieldsValue({
             accountCode: res.accountCode,
             userName: res.userName,

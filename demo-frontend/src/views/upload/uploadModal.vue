@@ -18,7 +18,16 @@
     </template>
 
     <a-spin :spinning="loading">
-      <a-upload :file-list="fileList" :remove="handleRemove" :before-upload="beforeUpload">
+      <a-input
+        v-model="userID"
+        placeholder="请输入用户 ID"
+        rules="rules"
+      />
+      <a-upload
+        style="margin-top: 5px"
+        :file-list="fileList"
+        :remove="handleRemove"
+        :before-upload="beforeUpload">
         <a-button> <a-icon type="upload" /> Select File </a-button>
       </a-upload>
     </a-spin>
@@ -26,28 +35,28 @@
 </template>
 
 <script>
-import { TableUpload } from '@/api/files.js';
+import { UploadFile } from '@/api/files.js';
 export default {
   name: "UserModal",
   data() {
     return {
-      type: '',
       visible: false,
       loading: false,
-      fileList: [],
       uploading: false,
-      userID: ''
+      userID: '',
+      fileList: [],
+      rules: {
+        userID: [{ required: true, message: '不能输入为空' }]
+      }
     }
   },
   methods: {
-    cancel() {
-      this.visible = false
-      this.form.resetFields()
-    },
-    paramReceive (data) {
+    paramReceive () {
       this.visible = true
       this.loading = false
-      this.userID = data
+    },
+    cancel() {
+      this.visible = false
     },
     handleRemove(file) {
       const index = this.fileList.indexOf(file);
@@ -60,24 +69,28 @@ export default {
       return false;
     },
     handleUpload() {
-      const { fileList } = this;
-      const formData = new FormData();
-      fileList.forEach(file => {
-        formData.append('multipartFile', file);
-      });
-      formData.append('userID', this.userID)
-      this.uploading = true;
+      if (this.userID !== ''){
+        const { fileList } = this;
+        const formData = new FormData();
+        fileList.forEach(file => {
+          formData.append('files', file);
+        });
+        formData.append('ID', this.userID)
+        this.uploading = true;
 
-      TableUpload(formData).then(res => {
-        if (res) {
-          this.fileList = [];
-          this.uploading = false;
-          this.$message.success('上传成功');
-        } else {
-          this.uploading = false;
-          this.$message.error('上传失败');
-        }
-      })
+        UploadFile(formData).then(res => {
+          if (res) {
+            this.fileList = [];
+            this.uploading = false;
+            this.$message.success('上传成功');
+          } else {
+            this.uploading = false;
+            this.$message.error('上传失败');
+          }
+        })
+      } else {
+        this.$message.error('ID 不能为空')
+      }
     }
   }
 }

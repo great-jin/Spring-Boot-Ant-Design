@@ -36,36 +36,8 @@ public class FilesController {
     }
 
     @PostMapping("/upload")
-    public boolean Upload(@RequestParam(name = "files", required = false) MultipartFile file) {
-        if(file.isEmpty()){
-            return false;
-        }
-
-        MinioRespond respond;
-        boolean tag = false;
-        String bucketName = "webtest";
-        try {
-            respond = minioUtil.uploadFile(file, bucketName);
-            if(respond.getObjectWriteResponse() != null){
-                Files files = new Files();
-                files.setAccountCode("1");
-                files.setInTime(new Date());
-                files.setMinioBucket(bucketName);
-
-                int i = filesService.add(files);
-                if(i>0){
-                    tag = true;
-                }
-            }
-        } catch (Exception e) {
-            log.error("上传失败 : [{}]", Arrays.asList(e.getStackTrace()));
-        }
-        return tag;
-    }
-
-    @PostMapping("/uploadFiles")
-    public boolean UploadFile(@RequestParam(name = "multipartFile") MultipartFile multipartFile,
-                              @RequestParam(name = "userID") String userID) {
+    public boolean UploadFile(@RequestParam(name = "files") MultipartFile multipartFile,
+                              @RequestParam(name = "ID") String ID) {
         if(multipartFile.isEmpty()){
             return false;
         }
@@ -77,7 +49,7 @@ public class FilesController {
             minioRespond = minioUtil.uploadFile(multipartFile, bucketName);
             if(minioRespond.getObjectWriteResponse() != null){
                 Files files = new Files();
-                files.setAccountCode(userID);
+                files.setAccountCode(ID);
                 files.setInTime(new Date());
                 files.setFileName(minioRespond.getOriginName());
                 files.setMinioBucket(bucketName);

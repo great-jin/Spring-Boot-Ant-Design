@@ -1,17 +1,9 @@
 <template>
   <div id="app">
-    <div style="margin-bottom: 50px">
-      <a-input v-model="accountCode" placeholder="Account Code" style="margin-bottom: 10px"/>
-      <textarea v-model="backResult"
-                placeholder="Result"
-                disabled="disabled"
-                style="width:1000px; height: 100px; margin-bottom: 5px"/>
-      <a-button @click="get()" style="margin-right: 100px;">Get</a-button>
-      <a-button @click="list()" style="margin-right: 100px">List</a-button>
-      <a-button @click="remove()">Delete</a-button>
-    </div>
-
-    <a-form :form="form">
+    <a-form
+      :form="form"
+      style="width: 50%; margin: 0 auto;"
+    >
       <a-form-item
         label="账号"
         :label-col="formItemLayout.labelCol"
@@ -52,7 +44,7 @@
 </template>
 
 <script>
-import { List, Login, getUser, addUser, updateUser, deleteUser} from '@/api/user.js';
+import { Login, addUser, updateUser} from '@/api/user.js';
 export default {
   name: 'User',
   data() {
@@ -67,14 +59,6 @@ export default {
     }
   },
   methods: {
-    list() {
-      List().then(res =>{
-        this.$message.success('获取成功')
-        const resJson = JSON.stringify(res)
-        console.log(resJson)
-        this.backResult = resJson
-      })
-    },
     add() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
@@ -128,38 +112,6 @@ export default {
         }
         this.clear()
       })
-    },
-    get() {
-      const code = this.accountCode
-      if(code !== '') {
-        getUser(code).then(res =>{
-          if (res === '用户不存在' ) {
-            this.$message.error('用户不存在')
-          } else {
-            this.$message.success('获取成功')
-            this.accountCode = ''
-          }
-          this.backResult = res
-        })
-      } else {
-        this.$message.error('不能为空')
-      }
-    },
-    remove() {
-      const code = this.accountCode
-      if(code !== '') {
-        deleteUser(code).then(res =>{
-          if (res === 1){
-            this.$message.success('删除成功')
-            this.accountCode = ''
-          } else {
-            this.$message.error('删除失败')
-            this.accountCode = ''
-          }
-        })
-      } else {
-        this.$message.error('账号不能为空')
-      }
     },
     clear() {
       this.form.resetFields()

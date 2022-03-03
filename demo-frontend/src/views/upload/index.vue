@@ -1,66 +1,39 @@
 <template>
-  <div class="clearfix">
-    <a-upload :file-list="fileList" :remove="handleRemove" :before-upload="beforeUpload">
-      <a-button> <a-icon type="upload" /> Select File </a-button>
-    </a-upload>
-
-    <a-button
-      type="primary"
-      :disabled="fileList.length === 0"
-      :loading="uploading"
-      style="margin-top: 16px"
-      @click="handleUpload"
-    >
-      {{ uploading ? 'Uploading' : 'Start Upload' }}
-    </a-button>
-
-    <div>
-      <a-input v-model="fileID"/>
-      <a-button @click="download()">下载</a-button>
+  <div id="app">
+    <div class="upload">
+      <a-button type="primary" @click="showUpload()">上传</a-button>
+      <uploadModal ref="uploadModal"></uploadModal>
     </div>
-  </div>
 
+    <div style="margin-top: 50px">
+      <a-input
+        v-model="fileID"
+        style="width: 40%"
+        placeholder="请输入文件编号"
+      />
+      <a-button type="primary" @click="download()">下载</a-button>
+    </div>
+
+  </div>
 </template>
 
 <script>
-import { UploadFile, DownloadFile } from '@/api/files.js';
+import uploadModal from './uploadModal'
+import { DownloadFile } from '@/api/files.js';
 export default {
+  components: {
+    uploadModal
+  },
   data() {
     return {
+      fileID: '',
       fileList: [],
       uploading: false,
-      fileID: ''
     }
   },
   methods: {
-    handleRemove(file) {
-      const index = this.fileList.indexOf(file);
-      const newFileList = this.fileList.slice();
-      newFileList.splice(index, 1);
-      this.fileList = newFileList;
-    },
-    beforeUpload(file) {
-      this.fileList = [...this.fileList, file];
-      return false;
-    },
-    handleUpload() {
-      const { fileList } = this;
-      const formData = new FormData();
-      fileList.forEach(file => {
-        formData.append('files', file);
-      });
-      this.uploading = true;
-
-      UploadFile(formData).then(res => {
-        if (res) {
-          this.fileList = [];
-          this.uploading = false;
-          this.$message.success('上传成功');
-        } else {
-          this.uploading = false;
-          this.$message.error('上传失败');
-        }
-      })
+    showUpload(){
+      this.$refs.uploadModal.paramReceive()
     },
     download(){
       const formData = new FormData()

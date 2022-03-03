@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div style="margin-bottom: 20px">
+    <div>
       <a-button
         type="primary"
-        style="margin-right: 720px"
+        style="float: left; z-index: 1"
         @click="operationClick('add', null)"
       >新增</a-button>
 
       <a-input-search
         placeholder="input search text"
-        style="width: 200px"
+        style="width: 200px; float: right; z-index: 1"
         @search="onSearch()"
       />
     </div>
@@ -19,6 +19,7 @@
       :data-source="data"
       :pagination="{ pageSize: 5 }"
       :bordered="false"
+      :customRow="customRow"
     >
       <template slot="status" slot-scope="text">
         <span v-if="text === 0"><a-tag  color="cyan">启用</a-tag></span>
@@ -27,26 +28,22 @@
 
       <template slot="operation" slot-scope="text, record, index">
         <a-button type="link" @click="operationClick('detail', record.key)">详情</a-button>
-        <a-button type="link" @click="operationClick('upload', record.key)">上传</a-button>
         <a-button type="link" @click="operationClick('edit', record.key)">修改</a-button>
       </template>
     </a-table>
 
     <userModal ref="userModal"></userModal>
-    <uploadModal ref="uploadModal"></uploadModal>
   </div>
 </template>
 
 <script>
 import userModal from './userModal'
-import uploadModal from './uploadModal'
 import { List } from '@/api/user.js';
-import { tableColumns, tableData } from "./const";
+import { tableColumns } from "./const";
 
 export default {
   components: {
-    userModal,
-    uploadModal
+    userModal
   },
   data() {
     return {
@@ -68,13 +65,11 @@ export default {
         });
       }
     })
-    // 测试数据
-    // this.data = tableData
     this.columns = tableColumns
   },
   methods: {
     onSearch() {
-
+      // do search
     },
     async refresh () {
       await this.operationClick('reset')
@@ -82,7 +77,6 @@ export default {
     async operationClick (type, record) {
       switch (type) {
         case 'reset':
-          this.created()
           break
         case 'add':
           console.log('add')
@@ -96,10 +90,16 @@ export default {
           console.log('detail')
           this.$refs.userModal.paramReceive(type, record)
           break
-        case 'upload':
-          console.log('detail')
-          this.$refs.uploadModal.paramReceive(record)
-          break
+      }
+    },
+    customRow(record){
+      return {
+        on:{
+          dblclick: (event) => {
+            console.log(record)
+            this.$refs.userModal.paramReceive('add', null)
+          }
+        }
       }
     }
   }
