@@ -9,11 +9,11 @@ export default {
   name: "AutoList",
   data () {
     return {
+      infoList: [],
       formItemLayout: {
         labelCol: { span: 7 },
         wrapperCol: { span: 14 }
-      },
-      infoList: []
+      }
     }
   },
   methods: {

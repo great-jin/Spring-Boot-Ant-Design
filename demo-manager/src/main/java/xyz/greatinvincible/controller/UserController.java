@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public User get(@RequestParam String code){
+    public User get(@Param("code") String code){
         User user = userServices.get(code);
         if (user == null) {
             return new User();

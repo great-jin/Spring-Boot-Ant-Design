@@ -8,7 +8,8 @@
       >新增</a-button>
 
       <a-input-search
-        placeholder="input search text"
+        v-model="accountCode"
+        placeholder="输入账号进行查询"
         style="width: 200px; float: right; z-index: 1"
         @search="onSearch()"
       />
@@ -28,7 +29,7 @@
 
       <template slot="operation" slot-scope="text, record, index">
         <a-button type="link" @click="operationClick('detail', record.key)">详情</a-button>
-        <a-button type="link" @click="operationClick('edit', record.key)">修改</a-button>
+        <a-button type="link" @click="operationClick('edit', record.key)" >修改 </a-button>
       </template>
     </a-table>
 
@@ -38,21 +39,24 @@
 
 <script>
 import userModal from './userModal'
-import { List } from '@/api/user.js';
+import { List, getUser } from '@/api/user.js';
 import { tableColumns } from "./const";
 
 export default {
+  inject: ['reload'],
   components: {
     userModal
   },
   data() {
     return {
       data: [],
-      columns: []
+      tableData: [],
+      columns: [],
+      accountCode: ''
     }
   },
   created() {
-    // 后端数据库
+    // 接口数据填充
     List().then(res =>{
       for(let i in res){
         this.data.push({
@@ -69,18 +73,20 @@ export default {
   },
   methods: {
     onSearch() {
-      List().then(res =>{
-        for(let i in res){
-          this.data.push({
-            key: res[i].accountCode,
-            id: res[i].id,
-            accountCode: res[i].accountCode,
-            userName: res[i].userName,
-            password: res[i].password,
-            isDelete: res[i].isDelete
-          });
-        }
-      })
+      this.data = []
+      const code = this.accountCode
+      if (code != ''){
+        getUser(code).then(res =>{
+          if(res.id != null){
+            this.data.push(res)
+          } else {
+            this.$message.error('未查询到结果')
+            this.reload()
+          }
+        })
+      } else {
+        this.reload()
+      }
     },
     async refresh () {
       await this.operationClick('reset')
@@ -88,7 +94,7 @@ export default {
     async operationClick (type, record) {
       switch (type) {
         case 'reset':
-          this.onSearch()
+          this.reload()
           break
         case 'add':
           this.$refs.userModal.paramReceive(type, record)
