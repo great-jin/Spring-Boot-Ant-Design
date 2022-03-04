@@ -36,15 +36,16 @@
       </a-form-item>
 
       <a-form-item>
-        <a-button type="primary" @click="login()" style="margin-right: 100px">Login</a-button>
-        <a-button type="primary" @click="clear()">Clear</a-button>
+        <a-button type="primary" @click="operationFun('add')" style="margin: 0 30px">注册</a-button>
+        <a-button type="primary" @click="operationFun('login')" style="margin: 0 30px">登录</a-button>
+        <a-button type="primary" @click="operationFun()" style="margin: 0 30px">Clear</a-button>
       </a-form-item>
     </a-form>
   </div>
 </template>
 
 <script>
-import { Login, addUser, updateUser} from '@/api/user.js';
+import { Login, addUser } from '@/api/user.js';
 export default {
   name: 'User',
   data() {
@@ -55,62 +56,47 @@ export default {
       formItemLayout: {
       labelCol: { span: 7 },
       wrapperCol: { span: 14 }
-    }
+      }
     }
   },
   methods: {
-    add() {
+    operationFun(type) {
       this.form.validateFields((errors, values) => {
-        if (!errors) {
-          addUser(values).then(res =>{
-            switch (res) {
-              case 1 :
-                this.$message.success('新增成功')
+          if (!errors) {
+            switch (type) {
+              case 'login':
+                Login(values).then(res =>{
+                  switch (res) {
+                    case 1 :
+                      this.$message.success('登录成功')
+                      break
+                    case 2 :
+                      this.$message.error('账号密码错误')
+                      break
+                    case 0 :
+                      this.$message.error('登录失败')
+                      break
+                  }
+                })
                 break
-              case 2 :
-                this.$message.error('账号重复')
-                break
-              case 0 :
-                this.$message.error('新增失败')
+              case 'add':
+                addUser(values).then(res =>{
+                  switch (res) {
+                    case 1 :
+                      this.$message.success('新增成功')
+                      break
+                    case 2 :
+                      this.$message.error('账号重复')
+                      break
+                    case 0 :
+                      this.$message.error('新增失败')
+                      break
+                  }
+                })
                 break
             }
-          })
-        }
-        this.clear()
-      })
-    },
-    update() {
-      this.form.validateFields((errors, values) => {
-        if (!errors) {
-          updateUser(values).then(res =>{
-            if (res === 1){
-              this.$message.success('更新成功')
-            } else {
-              this.$message.error('更新失败')
-            }
-          })
-        }
-        this.clear()
-      })
-    },
-    login() {
-      this.form.validateFields((errors, values) => {
-        if (!errors) {
-          Login(values).then(res =>{
-            switch (res) {
-              case 1 :
-                this.$message.success('登录成功')
-                break
-              case 2 :
-                this.$message.error('账号密码错误')
-                break
-              case 0 :
-                this.$message.error('登录失败')
-                break
-            }
-          })
-        }
-        this.clear()
+            this.clear()
+          }
       })
     },
     clear() {

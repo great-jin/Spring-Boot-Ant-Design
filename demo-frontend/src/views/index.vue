@@ -1,19 +1,8 @@
 <template>
   <div id="app">
-    <h1>This is Vue Demo</h1>
-
     <div class="trans">
       <router-link to="/" style="margin-right: 20px">
-        <a-button>Home</a-button>
-      </router-link>
-      <router-link to="/user" style="margin-right: 20px">
-        <a-button>User</a-button>
-      </router-link>
-      <router-link to="/table" style="margin-right: 20px">
-        <a-button>Table</a-button>
-      </router-link>
-      <router-link to="/file" style="margin-right: 20px">
-        <a-button>Upload</a-button>
+        <a-button type="primary" style="width: 60%">首页</a-button>
       </router-link>
     </div>
 

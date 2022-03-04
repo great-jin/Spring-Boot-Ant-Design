@@ -69,7 +69,18 @@ export default {
   },
   methods: {
     onSearch() {
-      // do search
+      List().then(res =>{
+        for(let i in res){
+          this.data.push({
+            key: res[i].accountCode,
+            id: res[i].id,
+            accountCode: res[i].accountCode,
+            userName: res[i].userName,
+            password: res[i].password,
+            isDelete: res[i].isDelete
+          });
+        }
+      })
     },
     async refresh () {
       await this.operationClick('reset')
@@ -77,17 +88,15 @@ export default {
     async operationClick (type, record) {
       switch (type) {
         case 'reset':
+          this.onSearch()
           break
         case 'add':
-          console.log('add')
-          this.$refs.userModal.paramReceive(type, record, false)
+          this.$refs.userModal.paramReceive(type, record)
           break
         case 'edit':
-          console.log('edit')
           this.$refs.userModal.paramReceive(type, record)
           break
         case 'detail':
-          console.log('detail')
           this.$refs.userModal.paramReceive(type, record)
           break
       }
@@ -97,7 +106,7 @@ export default {
         on:{
           dblclick: (event) => {
             console.log(record)
-            this.$refs.userModal.paramReceive('add', null)
+            this.$message.success('你双击了表格')
           }
         }
       }
