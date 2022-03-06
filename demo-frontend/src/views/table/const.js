@@ -43,20 +43,3 @@ export const tableColumns = [
     scopedSlots: { customRender: 'operation' },
   }
 ]
-
-// 测试数据
-export const tableData = [
-  {
-    id:'1',
-    accountCode: '123456',
-    userName: 'Alexxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    password: '123456',
-    isDelete: 1
-  },{
-    id:'2',
-    accountCode: '456789',
-    userName: 'Bob',
-    password: '456789',
-    isDelete: 0
-  }
-]

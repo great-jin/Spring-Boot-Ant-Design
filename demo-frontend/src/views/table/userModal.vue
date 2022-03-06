@@ -11,7 +11,6 @@
         key="submit"
         type="primary"
         :hidden="isDetail"
-        :loading="confirmLoading"
         @click="ok()"
       >确定</a-button>
     </template>
@@ -66,15 +65,14 @@ export default {
     return {
       type: '',
       visible: false,
-      confirmLoading: false,
       loading: false,
       isDetail: false,
       isEdit: false,
-      form: this.$form.createForm(this),
       formItemLayout: {
         labelCol: { span: 7 },
         wrapperCol: { span: 14 }
-      }
+      },
+      form: this.$form.createForm(this)
     }
   },
   methods: {

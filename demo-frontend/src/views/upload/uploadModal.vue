@@ -10,7 +10,6 @@
       <a-button
         key="submit"
         type="primary"
-        style="margin-top: 16px"
         :loading="uploading"
         :disabled="fileList.length === 0"
         @click="handleUpload"
@@ -20,15 +19,13 @@
     <a-spin :spinning="loading">
       <a-input
         v-model="userID"
-        placeholder="请输入用户 ID"
-        rules="rules"
+        placeholder="请输入用户编号"
       />
       <a-upload
-        style="margin-top: 5px"
         :file-list="fileList"
         :remove="handleRemove"
         :before-upload="beforeUpload">
-        <a-button> <a-icon type="upload" /> Select File </a-button>
+        <a-button> <a-icon type="upload" /> 选择文件 </a-button>
       </a-upload>
     </a-spin>
   </a-modal>
@@ -37,17 +34,14 @@
 <script>
 import { UploadFile } from '@/api/files.js';
 export default {
-  name: "UserModal",
+  name: "UploadModal",
   data() {
     return {
       visible: false,
       loading: false,
       uploading: false,
       userID: '',
-      fileList: [],
-      rules: {
-        userID: [{ required: true, message: '不能输入为空' }]
-      }
+      fileList: []
     }
   },
   methods: {
@@ -57,6 +51,7 @@ export default {
     },
     cancel() {
       this.visible = false
+      this.fileList = []
     },
     handleRemove(file) {
       const index = this.fileList.indexOf(file);
@@ -88,6 +83,7 @@ export default {
             this.$message.error('上传失败');
           }
         })
+        this.cancel()
       } else {
         this.$message.error('ID 不能为空')
       }

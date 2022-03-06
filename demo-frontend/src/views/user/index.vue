@@ -36,9 +36,9 @@
       </a-form-item>
 
       <a-form-item>
-        <a-button type="primary" @click="operationFun('add')" style="margin: 0 30px">注册</a-button>
-        <a-button type="primary" @click="operationFun('login')" style="margin: 0 30px">登录</a-button>
-        <a-button type="primary" @click="operationFun()" style="margin: 0 30px">Clear</a-button>
+        <a-button type="primary" @click="operationFun('add')" style="margin: 0 25px">注册</a-button>
+        <a-button type="primary" @click="operationFun('login')" style="margin: 0 25px">登录</a-button>
+        <a-button type="primary" @click="clear()" style="margin: 0 25px">Clear</a-button>
       </a-form-item>
     </a-form>
   </div>

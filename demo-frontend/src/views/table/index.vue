@@ -75,7 +75,7 @@ export default {
     onSearch() {
       this.data = []
       const code = this.accountCode
-      if (code != ''){
+      if (code !== ''){
         getUser(code).then(res =>{
           if(res.id != null){
             this.data.push(res)
@@ -110,9 +110,13 @@ export default {
     customRow(record){
       return {
         on:{
-          dblclick: (event) => {
+          click: () => {
             console.log(record)
-            this.$message.success('你双击了表格')
+            this.$message.success(record.accountCode)
+          },
+          dblclick: () => {
+            console.log(record)
+            this.$message.success(record.userName)
           }
         }
       }
