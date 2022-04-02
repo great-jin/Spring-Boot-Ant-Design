@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import router from './router'
-import Index from '@/views/index'
+import App from './app'
 
 // npm i --save ant-design-vue
 import Antd from 'ant-design-vue';
@@ -15,6 +15,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  components: { Index },
-  template: '<Index/>'
+  components: { App },
+  template: '<App/>'
 })

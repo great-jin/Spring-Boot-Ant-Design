@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/components/home'
+import Home from '@/views/index'
 import User from '@/views/user/index'
 import Table from '@/views/table/index'
 import File from '@/views/upload/index'
-import Auto from '@/views/autoList/index'
 
 Vue.use(Router)
 
@@ -28,10 +27,6 @@ export default new Router({
       path: '/file',
       name: 'File',
       component: File
-    },{
-      path: '/auto',
-      name: 'Auto',
-      component: Auto
     }
   ]
 })

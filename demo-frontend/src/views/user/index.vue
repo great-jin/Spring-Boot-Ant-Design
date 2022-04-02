@@ -52,11 +52,11 @@ export default {
     return {
       backResult: '',
       accountCode: '',
-      form: this.$form.createForm(this),
       formItemLayout: {
       labelCol: { span: 7 },
       wrapperCol: { span: 14 }
-      }
+      },
+      form: this.$form.createForm(this)
     }
   },
   methods: {

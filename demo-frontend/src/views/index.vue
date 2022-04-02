@@ -1,47 +1,21 @@
 <template>
-  <div id="app">
-    <div class="trans">
-      <router-link to="/" style="margin-right: 20px">
-        <a-button type="primary" style="width: 60%">首页</a-button>
-      </router-link>
-    </div>
+  <div>
+    <router-link to="/user" style="margin: 0 20px">
+      <a-button>User</a-button>
+    </router-link>
+    <router-link to="/table" style="margin: 0 20px">
+      <a-button>Table</a-button>
+    </router-link>
+    <router-link to="/file" style="margin: 0 20px">
+      <a-button>Files</a-button>
+    </router-link>
 
-    <router-view v-if="isRouterAlive"/>
+    <router-view />
   </div>
 </template>
 
 <script>
-export default {
-  name: 'App',
-  provide() { // 父组件中返回要传给下级的数据
-    return {
-      reload: this.reload
-    }
-  },
-  data() {
-    return {
-      isRouterAlive: true
-    }
-  },
-  methods: {
-    reload() {
-      this.isRouterAlive = false
-      this.$nextTick(function() {
-        this.isRouterAlive = true
-      })
-    }
-  }
-}
 </script>
 
-<style scoped>
-  #app {
-    width: 70%;
-    margin: 20px auto;
-    text-align: center;
-    color: #2c3e50;
-  }
-  .trans{
-    margin-bottom: 15px;
-  }
+<style>
 </style>
