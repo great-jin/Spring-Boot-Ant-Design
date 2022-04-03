@@ -96,7 +96,6 @@ export default {
       this.isDetail = false
       this.isEdit = false
       this.form.resetFields()
-      this.$parent.refresh()
     },
     ok() {
       this.form.validateFields((errors, values) => {
@@ -105,7 +104,7 @@ export default {
           switch (type) {
             case 'add':
               addUser(values).then(res =>{
-                switch (res) {
+                switch (res.data) {
                   case 1 :
                     this.$message.success('新增成功')
                     break
@@ -120,7 +119,7 @@ export default {
               break
             case 'edit':
               updateUser(values).then(res =>{
-                if (res === 1){
+                if (res.data === 1){
                   this.$message.success('更新成功')
                 } else {
                   this.$message.error('更新失败')
@@ -137,9 +136,9 @@ export default {
       if(code !== '') {
         getUser(code).then(res =>{
           this.form.setFieldsValue({
-            accountCode: res.accountCode,
-            userName: res.userName,
-            password: res.password
+            accountCode: res.data.accountCode,
+            userName: res.data.userName,
+            password: res.data.password
           })
         })
       }

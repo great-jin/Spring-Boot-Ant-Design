@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/views/index'
-import User from '@/views/user/index'
+import Home from '@/views/app'
+import Form from '@/views/form/index'
+import FormModel from '@/views/form/model/index'
 import Table from '@/views/table/index'
-import File from '@/views/upload/index'
+import Files from '@/views/upload/index'
+import Shows from '@/views/modal/index'
+import Auto from '@/views/auto/index'
 
 Vue.use(Router)
 
@@ -15,18 +18,36 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
-    },{
+    },
+    {
+      path: '/form',
+      name: 'form',
+      component: Form
+    },
+    {
+      path: '/formModel',
+      name: 'formModel',
+      component: FormModel
+    },
+    {
       path: '/table',
       name: 'Table',
       component: Table
-    },{
-      path: '/user',
-      name: 'User',
-      component: User
-    },{
+    },
+    {
       path: '/file',
-      name: 'File',
-      component: File
+      name: 'Files',
+      component: Files
+    },
+    {
+      path: '/show',
+      name: 'Shows',
+      component: Shows
+    },
+    {
+      path: '/auto',
+      name: 'Auto',
+      component: Auto
     }
   ]
 })

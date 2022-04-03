@@ -36,11 +36,11 @@ export default {
       this.$refs.uploadModal.paramReceive()
     },
     download(){
-      if(this.fileID != '') {
+      if(this.fileID !== '') {
         const formData = new FormData()
         formData.append("fileID", this.fileID)
         DownloadFile(formData).then(res => {
-          console.log(res)
+          console.log(res.data)
         })
       } else {
         this.$message.error('文件编号不能为空！')

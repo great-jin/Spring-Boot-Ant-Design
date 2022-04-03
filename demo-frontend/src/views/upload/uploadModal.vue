@@ -74,7 +74,7 @@ export default {
         this.uploading = true;
 
         UploadFile(formData).then(res => {
-          if (res) {
+          if (res.data) {
             this.fileList = [];
             this.uploading = false;
             this.$message.success('上传成功');

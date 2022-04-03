@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import router from './router'
-import App from './app'
+import App from './views/app'
 
 // npm i --save ant-design-vue
 import Antd from 'ant-design-vue';
