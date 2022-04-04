@@ -4,6 +4,8 @@ import Vue from 'vue'
 import router from './router'
 import App from './views/app'
 
+import Router from 'vue-router'
+
 // npm i --save ant-design-vue
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
@@ -18,3 +20,8 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
