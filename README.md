@@ -11,12 +11,7 @@
 - 性能优化：Redis缓存。
 
 
-### 二、页面预览
-![](image/1.png)
-![](image/2.png)
-
-
-### 三、数据表脚本
+### 二、数据表脚本
 ```sql
 CREATE TABLE `tb_user`  (
 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -27,6 +22,3 @@ CREATE TABLE `tb_user`  (
 PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 ```
-
-
-
