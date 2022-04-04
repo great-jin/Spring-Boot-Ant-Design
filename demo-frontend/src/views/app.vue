@@ -1,56 +1,40 @@
 <template>
   <div id="home">
-    <a-layout id="topBanner">
+    <a-layout id="top-banner">
       <a-layout-header>
         <div class="logo">Vue Demo</div>
       </a-layout-header>
     </a-layout>
 
-    <a-layout class="sideBar">
+    <a-layout class="side-bar">
       <a-layout-sider
         v-model="collapsed"
         :trigger="null"
         style="background-color: white"
         collapsible
       >
-        <a-menu theme="light" mode="inline" :default-selected-keys="['1']">
+        <a-menu
+          theme="light"
+          mode="inline"
+          :default-selected-keys="['0']"
+        >
           <a-icon
             class="trigger"
             :type="collapsed ? 'menu-unfold' : 'menu-fold'"
             @click="() => (collapsed = !collapsed)"
           />
-          <a-menu-item key="5" @click="routePage('show')">
+          <a-menu-item
+            v-for="(item, index) in menuData"
+            :key="index"
+            @click="routePage(item.key)"
+          >
             <a-icon type="user-add" />
-            <span>页面弹窗</span>
-          </a-menu-item>
-          <a-menu-item key="1" @click="routePage('form')">
-            <a-icon type="user-add" />
-            <span>Form表单</span>
-          </a-menu-item>
-          <a-menu-item key="6" @click="routePage('auto')">
-            <a-icon type="user-add" />
-            <span>动态表单</span>
-          </a-menu-item>
-          <a-menu-item key="2" @click="routePage('formModel')">
-            <a-icon type="user-add" />
-            <span>Model表单</span>
-          </a-menu-item>
-          <a-menu-item key="3" @click="routePage('table')">
-            <a-icon type="user-add" />
-            <span>Table表格</span>
-          </a-menu-item>
-          <a-menu-item key="4" @click="routePage('file')">
-            <a-icon type="user-add" />
-            <span>文件上传</span>
+            <span>{{ item.title }}</span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
-
       <a-layout style="height: 94%; padding: 20px 0">
-        <a-layout-content
-          :style="{ margin: '0px 16px 24px 16px', padding: '15px', background: '#fff'}"
-          style="overflow-x: hidden; overflow-y: auto; "
-        >
+        <a-layout-content class="layout-content">
           <router-view v-if="isRouterAlive"/>
         </a-layout-content>
       </a-layout>
@@ -64,7 +48,28 @@ export default {
   data () {
     return {
       collapsed: false,
-      isRouterAlive: true
+      isRouterAlive: true,
+      menuData: [
+        {
+          key: 'show',
+          title: '页面弹窗'
+        },{
+          key: 'form',
+          title: 'Form表单'
+        },{
+          key: 'auto',
+          title: '动态表单'
+        },{
+          key: 'formModel',
+          title: 'Model表单'
+        },{
+          key: 'table',
+          title: 'Table表格'
+        },{
+          key: 'file',
+          title: '文件上传'
+        }
+      ]
     }
   },
   provide () {
@@ -82,19 +87,19 @@ export default {
     },
     routePage (data) {
       this.$router.push(`/${data}`)
-    },
+    }
   }
 }
 </script>
 
 <style scoped>
-  #home{
+  #home {
     width: 100%;
     height: 100%;
     position: absolute;
     overflow: hidden;
   }
-  #topBanner .logo {
+  #top-banner .logo {
     width: 120px;
     height: 31px;
     line-height: 31px;
@@ -106,17 +111,24 @@ export default {
     padding-left: 7px;
     float: left;
   }
-  .sideBar{
+  .side-bar {
     height: 100%;
   }
-  .sideBar .trigger {
+  .side-bar .trigger {
     font-size: 18px;
     line-height: 64px;
     padding: 0 30px;
     cursor: pointer;
     transition: color 0.3s;
   }
-  .sideBar .trigger:hover {
+  .side-bar .trigger:hover {
     color: #1890ff;
+  }
+  .layout-content {
+    margin: 0px 16px 24px 16px;
+    padding: 15px;
+    background: #fff;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 </style>
