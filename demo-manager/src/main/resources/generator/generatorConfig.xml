@@ -24,7 +24,7 @@
         </javaTypeResolver>
 
         <!-- 生成实体类的包名和位置-->
-        <javaModelGenerator targetPackage="xyz.greatinvincible.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="xyz.ibudai.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
             <property name="constructorBased" value="false"/>
@@ -36,7 +36,7 @@
         </sqlMapGenerator>
 
         <!-- 生成 mapper 的包名和位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="xyz.greatinvincible.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="xyz.ibudai.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
