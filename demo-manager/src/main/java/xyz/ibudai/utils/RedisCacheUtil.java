@@ -17,7 +17,6 @@ public class RedisCacheUtil {
      *  插入数据或者更新数据
      */
     public void Insert(String key, Object value, long timeout, TimeUnit timeUnit) {
-
         if (StringUtils.isBlank(key) || !ObjectUtils.anyNotNull(value)) {
             return;
         }
@@ -26,7 +25,6 @@ public class RedisCacheUtil {
         } else {
             redisTemplate.opsForValue().set(key, value, timeout, timeUnit);
         }
-
     }
 
     /**

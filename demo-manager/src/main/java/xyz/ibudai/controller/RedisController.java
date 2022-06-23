@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/redis")
-public class MessageController {
+public class RedisController {
 
     private static String CHANNEL = "budai";
 
     private RedisTemplate<String, String> redisTemplate;
 
-    public MessageController(RedisTemplate<String, String> redisTemplate) {
+    public RedisController(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 

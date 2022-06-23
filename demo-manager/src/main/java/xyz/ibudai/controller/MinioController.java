@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @RestController
 @RequestMapping(value = "/files")
-public class FilesController {
+public class MinioController {
 
     @Autowired
     private MinioUtil minioUtil;

@@ -1,4 +1,4 @@
-package xyz.ibudai.entity.model;
+package xyz.ibudai.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
