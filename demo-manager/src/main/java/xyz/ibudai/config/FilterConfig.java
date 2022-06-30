@@ -18,7 +18,6 @@ public class FilterConfig implements WebMvcConfigurer {
                 .excludePathPatterns(excludePath);
         */
     }
-
 }
 
 

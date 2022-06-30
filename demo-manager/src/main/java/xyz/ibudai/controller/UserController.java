@@ -74,5 +74,4 @@ public class UserController {
     public int delete(@Param("code") String code){
         return userService.delete(code);
     }
-
 }

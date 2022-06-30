@@ -53,5 +53,4 @@ public class RedisConfig {
     private RedisSerializationContext.SerializationPair<Object> valuePair() {
         return RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer());
     }
-
 }

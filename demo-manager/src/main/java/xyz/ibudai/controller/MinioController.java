@@ -31,23 +31,23 @@ public class MinioController {
     private FilesService filesService;
 
     @PostMapping("list")
-    public List<Files> list(){
+    public List<Files> list() {
         return filesService.list();
     }
 
     @PostMapping("/upload")
     public boolean UploadFile(@RequestParam(name = "files") MultipartFile multipartFile,
                               @RequestParam(name = "ID") String ID) {
-        if(multipartFile.isEmpty()){
+        if (multipartFile.isEmpty()) {
             return false;
         }
 
-        MinioRespond minioRespond = null;
+        MinioRespond minioRespond;
         boolean tag = false;
         String bucketName = "webtest";
         try {
             minioRespond = minioUtil.uploadFile(multipartFile, bucketName);
-            if(minioRespond.getObjectWriteResponse() != null){
+            if (minioRespond.getObjectWriteResponse() != null) {
                 Files files = new Files();
                 files.setAccountCode(ID);
                 files.setInTime(new Date());
@@ -56,7 +56,7 @@ public class MinioController {
                 files.setMinioPath(minioRespond.getFileName());
 
                 int i = filesService.add(files);
-                if(i>0){
+                if (i > 0) {
                     tag = true;
                 }
             }
@@ -83,12 +83,9 @@ public class MinioController {
         Files file = filesService.get(fileID);
 
         ResponseEntity<byte[]> responseEntity = null;
-        InputStream stream = null;
-        ByteArrayOutputStream output = null;
 
-        try{
-            stream = minioUtil.getObject(bucketName, file.getMinioPath());
-            output = new ByteArrayOutputStream();
+        try (InputStream stream = minioUtil.getObject(bucketName, file.getMinioPath())) {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
             byte[] buffer = new byte[4096];
             int n = 0;
             while (-1 != (n = stream.read(buffer))) {
@@ -103,14 +100,9 @@ public class MinioController {
             httpHeaders.add("Content-disposition", "attachment; filename=" + fileID);
             httpHeaders.add("Content-Type", "text/plain;charset=utf-8");
             responseEntity = new ResponseEntity<byte[]>(bytes, httpHeaders, HttpStatus.CREATED);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new PrinterException();
-        } finally {
-            if(stream != null) {
-                stream.close();
-            }
         }
         return responseEntity;
     }
-
 }

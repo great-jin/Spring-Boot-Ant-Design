@@ -24,5 +24,4 @@ public class MinioConfig {
                 .credentials(minioProp.getAccessKey(), minioProp.getSecretKey())
                 .build();
     }
-
 }
