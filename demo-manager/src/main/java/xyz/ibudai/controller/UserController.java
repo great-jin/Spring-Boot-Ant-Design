@@ -16,12 +16,12 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/list")
-    public List<User> list(){
+    public List<User> list() {
         return userService.list();
     }
 
     @GetMapping("/get")
-    public User get(@Param("code") String code){
+    public User get(@Param("code") String code) {
         User user = userService.get(code);
         if (user == null) {
             return new User();
@@ -30,11 +30,11 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public int add(@RequestBody User user){
+    public int add(@RequestBody User user) {
         String accountCode = user.getAccountCode();
         List<User> list = userService.list();
-        for(User user1 : list) {
-            if(accountCode.equals(user1.getAccountCode())){
+        for (User user1 : list) {
+            if (accountCode.equals(user1.getAccountCode())) {
                 return 2;
             }
         }
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public int Login(@RequestBody User user){
+    public int Login(@RequestBody User user) {
         String userName = user.getUserName();
         String password = user.getPassword();
 
@@ -51,27 +51,22 @@ public class UserController {
         String loginUserName = loginUser.getUserName();
         String loginPassword = loginUser.getPassword();
 
-        int flag = 0 ;
-        if (loginUser != null){
-            if (userName.equals(loginUserName) && password.equals(loginPassword)){
-                flag = 1;
-            }
-            else {
-                flag = 2;
-            }
+        int flag;
+        if (userName.equals(loginUserName) && password.equals(loginPassword)) {
+            flag = 1;
         } else {
-            flag = 0;
+            flag = 2;
         }
         return flag;
     }
 
     @PostMapping("/update")
-    public int update(@RequestBody User user){
+    public int update(@RequestBody User user) {
         return userService.update(user);
     }
 
     @GetMapping("/delete")
-    public int delete(@Param("code") String code){
+    public int delete(@Param("code") String code) {
         return userService.delete(code);
     }
 }

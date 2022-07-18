@@ -5,7 +5,7 @@
 <mapper namespace="xyz.ibudai.dao.FilesDao">
 
     <resultMap type="xyz.ibudai.entity.Files" id="fileResult">
-        <id property="ID" column="id" />
+        <id property="ID" column="id"/>
         <result property="accountCode" column="account_code"/>
         <result property="fileName" column="file_name"/>
         <result property="inTime" column="in_time"/>
@@ -14,12 +14,13 @@
     </resultMap>
 
     <select id="list" resultMap="fileResult">
-        select * from tb_files
+        select *
+        from tb_files
     </select>
 
-
     <select id="get" resultMap="fileResult" parameterType="String">
-        select * from tb_files
+        select *
+        from tb_files
         where id = #{ID}
     </select>
 
@@ -62,8 +63,8 @@
     </insert>
 
     <delete id="delete" parameterType="String">
-        delete from tb_files
+        delete
+        from tb_files
         where id = #{ID}
     </delete>
-
 </mapper>
