@@ -12,7 +12,7 @@ import xyz.ibudai.service.UserService;
 
 import java.util.List;
 
-@Service
+@Service("userService")
 @CacheConfig(cacheNames = "users")
 public class UserServiceImpl implements UserService {
 

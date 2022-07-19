@@ -1,4 +1,4 @@
-import request from './axios';
+import request from './util/axios';
 
 export function List(params) {
     return request({
@@ -21,6 +21,7 @@ export function addUser(params) {
     data: params
   })
 }
+
 export function Login(params) {
   return request({
     url: '/users/login',
