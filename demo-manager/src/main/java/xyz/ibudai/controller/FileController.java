@@ -7,23 +7,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.ibudai.entity.User;
-import xyz.ibudai.entity.UserInfo;
-import xyz.ibudai.service.UserService;
+import xyz.ibudai.entity.SysUser;
+import xyz.ibudai.service.SysUserService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("files")
 public class FileController {
 
     @Autowired
-    UserService userService;
+    SysUserService sysUserService;
 
     @GetMapping("downloadFiles")
     public void downloadFiles(@RequestParam(value = "Info") String Info,
@@ -41,9 +42,9 @@ public class FileController {
         response.setHeader("filename", URLEncoder.encode("hello", "UTF-8"));
         response.setCharacterEncoding("utf-8");
 
-        List<User> userList = userService.list();
+        List<SysUser> userList = sysUserService.queryAll();
         List<String> header = new ArrayList<>();
-//        List<List<String>> collect = header.stream().map(Arrays::asList).collect(Collectors.toList());
+        List<List<String>> collect = header.stream().map(Arrays::asList).collect(Collectors.toList());
         EasyExcel.write(response.getOutputStream())
                 .sheet("Info")
                 // 宽度自适应

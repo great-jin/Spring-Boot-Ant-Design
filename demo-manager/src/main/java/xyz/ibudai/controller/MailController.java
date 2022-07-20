@@ -10,7 +10,7 @@ import xyz.ibudai.entity.Mail;
 @RequestMapping(value = "/mail")
 public class MailController {
 
-    /*@Autowired
+    @Autowired
     private JavaMailSender mailSender;
 
     @PostMapping("/send")
@@ -22,5 +22,5 @@ public class MailController {
         message.setText(mail.getMessage());
 
         mailSender.send(message);
-    }*/
+    }
 }
