@@ -11,7 +11,9 @@
         style="width: 40%"
         placeholder="请输入文件编号"
       />
-      <a-button type="primary" @click="download()">下载</a-button>
+      <a-button type="primary" @click="download('minio')">MinIO 下载</a-button>
+      <a-button type="primary" @click="download('txt')">Txt 下载</a-button>
+      <a-button type="primary" @click="download('excel')">Excel 下载</a-button>
     </div>
 
   </div>
@@ -19,7 +21,10 @@
 
 <script>
 import uploadModal from './uploadModal'
-import { DownloadFile } from '@/api/files.js';
+import {downloadFile} from '@/api/minioFile.js';
+import {downloadExcel} from '@/api/files.js';
+import {downloadTxt} from '@/api/files.js';
+
 export default {
   components: {
     uploadModal
@@ -32,18 +37,28 @@ export default {
     }
   },
   methods: {
-    showUpload(){
+    showUpload() {
       this.$refs.uploadModal.paramReceive()
     },
-    download(){
-      if(this.fileID !== '') {
-        const formData = new FormData()
-        formData.append("fileID", this.fileID)
-        DownloadFile(formData).then(res => {
-          console.log(res.data)
-        })
-      } else {
-        this.$message.error('文件编号不能为空！')
+    download(type) {
+      switch (type) {
+        case 'minio':
+          if (this.fileID !== '') {
+            const formData = new FormData()
+            formData.append("fileID", this.fileID)
+            downloadFile(formData).then(res => {
+              console.log(res.data)
+            })
+          } else {
+            this.$message.error('文件编号不能为空！')
+          }
+          break;
+        case 'excel':
+          downloadExcel()
+          break;
+        case 'txt':
+          downloadTxt({Info: '222'})
+          break;
       }
     }
   }

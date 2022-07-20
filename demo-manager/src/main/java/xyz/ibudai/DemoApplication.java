@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableCaching
 @EnableScheduling
-@MapperScan("xyz.ibudai.dao")
 @SpringBootApplication
+@MapperScan("xyz.ibudai.dao")
 public class DemoApplication {
 
 	public static void main(String[] args) {

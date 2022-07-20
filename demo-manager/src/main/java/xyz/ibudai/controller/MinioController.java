@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/files")
+@RequestMapping(value = "/minio")
 public class MinioController {
 
     @Autowired

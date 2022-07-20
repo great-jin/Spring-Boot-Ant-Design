@@ -32,7 +32,8 @@
 </template>
 
 <script>
-import { UploadFile } from '@/api/files.js';
+import { uploadFile } from '@/api/minioFile.js';
+
 export default {
   name: "UploadModal",
   data() {
@@ -73,7 +74,7 @@ export default {
         formData.append('ID', this.userID)
         this.uploading = true;
 
-        UploadFile(formData).then(res => {
+        uploadFile(formData).then(res => {
           if (res.data) {
             this.fileList = [];
             this.uploading = false;

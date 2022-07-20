@@ -1,4 +1,23 @@
 spring:
+  # MySQL 数据库
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.231.6.65:3306/test_db?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+    # 阿里连接池配置
+    druid:
+      initial-size: 5
+      max-active: 30
+      min-idle: 10
+      max-wait: 6000
+      # SQL防火墙
+      filters: stat, wall
+      # 配置监控选项，访问路径：http://localhost:9090/druid/
+      web-stat-filter.enabled: true
+      stat-view-servlet.enabled: true
+      stat-view-servlet.login-username: admin
+      stat-view-servlet.login-password: admin
   # Redis 缓存
   redis:
     host: 10.231.6.65

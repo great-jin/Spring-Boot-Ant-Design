@@ -46,6 +46,7 @@ public class FileController {
         List<String> header = new ArrayList<>();
         List<List<String>> collect = header.stream().map(Arrays::asList).collect(Collectors.toList());
         EasyExcel.write(response.getOutputStream())
+                .head(collect)
                 .sheet("Info")
                 // 宽度自适应
                 .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
