@@ -5,25 +5,23 @@
       <uploadModal ref="uploadModal"></uploadModal>
     </div>
 
-    <div style="margin-top: 50px">
-      <a-input
-        v-model="fileID"
-        style="width: 40%"
-        placeholder="请输入文件编号"
-      />
-      <a-button type="primary" @click="download('minio')">MinIO 下载</a-button>
-      <a-button type="primary" @click="download('txt')">Txt 下载</a-button>
-      <a-button type="primary" @click="download('excel')">Excel 下载</a-button>
-    </div>
-
+    <a-input
+      v-model="fileID"
+      placeholder="请输入文件编号"
+      style="width: 10%;margin: 50px 0 20px 0"
+    />
+    <br/>
+    <a-button type="primary" @click="download('txt')">Txt 下载</a-button>
+    <a-button type="primary" @click="download('minio')">MinIO 下载</a-button>
+    <a-button type="primary" @click="download('excel')">Excel 下载</a-button>
   </div>
 </template>
 
 <script>
 import uploadModal from './uploadModal'
-import {downloadFile} from '@/api/minioFile.js';
-import {downloadExcel} from '@/api/files.js';
 import {downloadTxt} from '@/api/files.js';
+import {downloadExcel} from '@/api/files.js';
+import {downloadFile} from '@/api/minioFile.js';
 
 export default {
   components: {

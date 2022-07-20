@@ -14,30 +14,27 @@
       />
     </a-row>
 
-    <a-config-provider :locale="zhCN">
-      <a-table
-        :columns="columns"
-        :data-source="data"
-        :pagination="pagination"
-        :bordered="false"
-        :customRow="customRow"
-      >
-        <template slot="operation" slot-scope="text, record, index">
-          <a-button type="link" @click="clickOption('detail', record)">详情</a-button>
-          <a-button type="link" @click="clickOption('edit', record)" >修改 </a-button>
-        </template>
-      </a-table>
-    </a-config-provider>
+    <a-table
+      :columns="columns"
+      :data-source="data"
+      :pagination="pagination"
+      :bordered="false"
+      :customRow="customRow"
+    >
+      <template slot="operation" slot-scope="text, record, index">
+        <a-button type="link" @click="clickOption('detail', record)">详情</a-button>
+        <a-button type="link" @click="clickOption('edit', record)">修改</a-button>
+      </template>
 
-    <userModal ref="userModal"></userModal>
+      <userModal ref="userModal"></userModal>
+    </a-table>
   </div>
 </template>
 
 <script>
-import { columns } from "./const";
+import {columns} from "./const";
 import userModal from './userModal'
-import { List, getUser } from '@/api/user.js';
-import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
+import {List, getUser} from '@/api/user.js';
 
 export default {
   inject: ['reload'],
@@ -46,7 +43,6 @@ export default {
   },
   data() {
     return {
-      zhCN,
       data: [],
       tableData: [],
       accountCode: '',
@@ -61,7 +57,7 @@ export default {
     }
   },
   computed: {
-    columns () {
+    columns() {
       return columns(this)
     }
   },
@@ -69,18 +65,18 @@ export default {
     this.getData()
   },
   methods: {
-    getData(){
+    getData() {
       // 获取表格数据
-      List().then(res =>{
+      List().then(res => {
         this.data = res.data
       })
     },
     onSearch() {
       this.data = []
       const code = this.accountCode
-      if (code !== ''){
-        getUser(code).then(res =>{
-          if(res.data.id != null){
+      if (code !== '') {
+        getUser(code).then(res => {
+          if (res.data.id != null) {
             this.data.push(res.data)
           } else {
             this.$message.error('未查询到结果')
@@ -91,7 +87,7 @@ export default {
         this.reload()
       }
     },
-    clickOption (type, record) {
+    clickOption(type, record) {
       switch (type) {
         case 'reset':
           this.reload()
@@ -107,14 +103,14 @@ export default {
           break
       }
     },
-    customRow(record){
+    customRow(record) {
       return {
-        on:{
+        on: {
           click: () => {
             this.$message.success('Click record ' + record.userName)
           },
           dblclick: () => {
-            this.$message.success('Double click record ' +record.userName)
+            this.$message.success('Double click record ' + record.userName)
           }
         }
       }

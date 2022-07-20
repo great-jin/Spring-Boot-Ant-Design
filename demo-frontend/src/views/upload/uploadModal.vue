@@ -3,8 +3,8 @@
     title="上传"
     :visible="visible"
     width="40%"
-    @cancel="cancel()">
-
+    @cancel="cancel()"
+  >
     <template slot="footer">
       <a-button key="back" @click="cancel()">取消</a-button>
       <a-button

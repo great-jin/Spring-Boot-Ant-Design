@@ -3,8 +3,8 @@
     :title="type === 'add' ? '新增' : type === 'edit'? '编辑' : '详情'"
     :visible="visible"
     width="30%"
-    @cancel="cancel()">
-
+    @cancel="cancel()"
+  >
     <template slot="footer">
       <a-button key="back" @click="cancel()">取消</a-button>
       <a-button
@@ -59,6 +59,7 @@
 
 <script>
 import { getUser, addUser, updateUser} from '@/api/user.js';
+
 export default {
   name: "UserModal",
   data() {
