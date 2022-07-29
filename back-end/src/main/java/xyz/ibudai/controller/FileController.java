@@ -26,11 +26,11 @@ public class FileController {
     @Autowired
     SysUserService sysUserService;
 
-    @GetMapping("downloadFiles")
+    @GetMapping("downloadFile")
     public void downloadFiles(@RequestParam(value = "Info") String Info,
                               HttpServletResponse response) throws IOException {
         response.setContentType("text/plain");
-        response.setHeader("filename", URLEncoder.encode("hello", "UTF-8"));
+        response.setHeader("filename", URLEncoder.encode("test", "UTF-8"));
         response.getOutputStream()
                 .write(Info.getBytes(StandardCharsets.UTF_8));
     }
@@ -39,7 +39,7 @@ public class FileController {
     public void downloadExcel(HttpServletResponse response) throws IOException {
         // 设置请求头部参数
         response.setContentType("application/vnd.ms-excel");
-        response.setHeader("filename", URLEncoder.encode("hello", "UTF-8"));
+        response.setHeader("filename", URLEncoder.encode("test", "UTF-8"));
         response.setCharacterEncoding("utf-8");
 
         List<SysUser> userList = sysUserService.queryAll();

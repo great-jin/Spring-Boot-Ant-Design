@@ -1,4 +1,4 @@
-package xyz.ibudai.service.impl;
+package xyz.ibudai.service.Impl;
 
 import xyz.ibudai.entity.SysUser;
 import xyz.ibudai.dao.SysUserDao;

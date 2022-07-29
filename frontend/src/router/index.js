@@ -4,7 +4,7 @@ import Router from 'vue-router'
 import Form from '@/views/form/index'
 import FormModel from '@/views/form/model/index'
 import Table from '@/views/table/index'
-import Files from '@/views/upload/index'
+import Files from '@/views/file/index'
 import Shows from '@/views/modal/index'
 import Auto from '@/views/auto/index'
 

@@ -25,7 +25,7 @@
         :file-list="fileList"
         :remove="handleRemove"
         :before-upload="beforeUpload">
-        <a-button> <a-icon type="upload" /> 选择文件 </a-button>
+        <a-button> <a-icon type="upload"/>选择文件</a-button>
       </a-upload>
     </a-spin>
   </a-modal>
@@ -66,22 +66,22 @@ export default {
     },
     handleUpload() {
       if (this.userID !== ''){
-        const { fileList } = this;
-        const formData = new FormData();
+        const { fileList } = this
+        const formData = new FormData()
         fileList.forEach(file => {
-          formData.append('files', file);
+          formData.append('files', file)
         });
         formData.append('ID', this.userID)
-        this.uploading = true;
+        this.uploading = true
 
         uploadFile(formData).then(res => {
           if (res.data) {
-            this.fileList = [];
-            this.uploading = false;
-            this.$message.success('上传成功');
+            this.fileList = []
+            this.uploading = false
+            this.$message.success('上传成功')
           } else {
-            this.uploading = false;
-            this.$message.error('上传失败');
+            this.uploading = false
+            this.$message.error('上传失败')
           }
         })
         this.cancel()

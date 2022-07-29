@@ -1,11 +1,14 @@
 import request from './util/axios';
 
-export const downloadTxt = params => request({
+export const downloadFile = params => request({
   method: 'get',
-  url: '/files/downloadFiles',
+  url: '/files/downloadFile',
+  params: params,
   responseType: 'blob',
-  params,
-  headers: {'Access-Control-Allow-origin': '*', 'Content-Type': 'charset=UTF-8'}
+  headers: {
+    'Access-Control-Allow-origin': '*',
+    'Content-Type': 'charset=UTF-8'
+  }
 }).then((res) => {
   if (res && res.status === 200) {
     // 设置文件后缀
@@ -44,9 +47,12 @@ export const downloadTxt = params => request({
 export const downloadExcel = params => request({
   method: 'get',
   url: '/files/downloadExcel',
+  params: params,
   responseType: 'blob',
-  params,
-  headers: {'Access-Control-Allow-origin': '*', 'Content-Type': 'charset=UTF-8'}
+  headers: {
+    'Access-Control-Allow-origin': '*',
+    'Content-Type': 'charset=UTF-8'
+  }
 }).then((res) => {
   if (res && res.status === 200) {
     // 设置文件后缀
