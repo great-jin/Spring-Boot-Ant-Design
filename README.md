@@ -2,4 +2,5 @@
 ### 一、介绍
 - 前端：Vue + Ant Design
 - 后端：Spring Boot
-- 前后端数据交互：Axios
+- 前后端交互：Axios
+- 数据库： MySQL + MinIO
