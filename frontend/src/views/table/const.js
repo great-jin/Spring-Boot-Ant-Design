@@ -3,40 +3,38 @@ export const columns = cxt => {
   return [
     {
       title: '编号',
-      dataIndex: 'id',
       width: '10%',
-      align: 'center'
+      align: 'center',
+      dataIndex: 'id'
     },
     {
       title: '账号',
-      dataIndex: 'accountCode',
       width: '15%',
       align: 'center',
-      scopedSlots: { customRender: 'accountCode' },
+      dataIndex: 'username'
     },
     {
-      title: '用户名',
-      dataIndex: 'userName',
+      title: '性别',
       width: '20%',
-      ellipsis: true,
-      align: 'center'
+      align: 'center',
+      dataIndex: 'gender'
     },
     {
-      title: '密码',
-      dataIndex: 'password',
+      title: '生日',
       width: '20%',
-      align: 'center'
+      align: 'center',
+      dataIndex: 'birthday'
     },
     {
       title: '状态',
-      dataIndex: 'isDelete',
       width: '15%',
       align: 'center',
+      dataIndex: 'isDelete',
       customRender: (record) => {
-        if(record === 0) {
-          return <a-tag color="cyan">启用</a-tag>
+        if (record === 0) {
+          return <a-tag color="blue">启用</a-tag>
         } else {
-          return <a-tag >注销</a-tag>
+          return <a-tag color="gray">注销</a-tag>
         }
       }
     },
@@ -45,7 +43,7 @@ export const columns = cxt => {
       width: '25%',
       align: 'center',
       dataIndex: 'operation',
-      scopedSlots: { customRender: 'operation' },
+      scopedSlots: {customRender: 'operation'},
     }
   ]
 }

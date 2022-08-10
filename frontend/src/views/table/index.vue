@@ -5,7 +5,8 @@
         type="primary"
         style="float: left; z-index: 1"
         @click="clickOption('add', null)"
-      >新增</a-button>
+      >新增
+      </a-button>
       <a-input-search
         v-model="accountCode"
         placeholder="输入账号进行查询"
@@ -34,7 +35,7 @@
 <script>
 import {columns} from "./const";
 import userModal from './userModal'
-import {List, getUser} from '@/api/user.js';
+import {listUser, getSysUser} from "@/api/sysUsers";
 
 export default {
   inject: ['reload'],
@@ -67,7 +68,7 @@ export default {
   methods: {
     getData() {
       // 获取表格数据
-      List().then(res => {
+      listUser().then(res => {
         this.data = res.data
       })
     },
@@ -75,7 +76,7 @@ export default {
       this.data = []
       const code = this.accountCode
       if (code !== '') {
-        getUser(code).then(res => {
+        getSysUser(code).then(res => {
           if (res.data.id != null) {
             this.data.push(res.data)
           } else {
