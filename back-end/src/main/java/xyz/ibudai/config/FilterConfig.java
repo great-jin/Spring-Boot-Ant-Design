@@ -12,8 +12,8 @@ public class FilterConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         LoginInterceptor loginInterceptor = new LoginInterceptor();
 
-        String[] path = {"/users/**"};
-        String[] excludePath = {"/users/list"};
+        String[] path = {"/sysUser/**"};
+        String[] excludePath = {"/sysUser/list"};
         registry.addInterceptor(loginInterceptor).addPathPatterns(path)
                 .excludePathPatterns(excludePath);
     }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (SysUser)表控制层
@@ -34,6 +35,11 @@ public class SysUserController {
     @GetMapping
     public ResponseEntity<Page<SysUser>> queryByPage(SysUser sysUser, PageRequest pageRequest) {
         return ResponseEntity.ok(this.sysUserService.queryByPage(sysUser, pageRequest));
+    }
+
+    @GetMapping("list")
+    public ResponseEntity<List<SysUser>> List() {
+        return ResponseEntity.ok(this.sysUserService.queryAll());
     }
 
     /**
