@@ -1,13 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Form from '@/views/form/index'
-import FormModel from '@/views/form/model/index'
-import Table from '@/views/table/index'
-import Files from '@/views/file/index'
-import Shows from '@/views/modal/index'
-import Auto from '@/views/auto/index'
-
 Vue.use(Router)
 
 export default new Router({
@@ -16,32 +9,31 @@ export default new Router({
     {
       path: '/form',
       name: 'form',
-      component: Form
-    },
-    {
+      component: () => import('@/views/form/index')
+    }, {
       path: '/formModel',
       name: 'formModel',
-      component: FormModel
-    },
-    {
+      component: () => import('@/views/form/model/index')
+    }, {
       path: '/table',
       name: 'Table',
-      component: Table
-    },
-    {
+      component: () => import('@/views/table/index')
+    }, {
       path: '/file',
       name: 'Files',
-      component: Files
-    },
-    {
-      path: '/show',
-      name: 'Shows',
-      component: Shows
-    },
-    {
+      component: () => import('@/views/file/index')
+    }, {
+      path: '/modal',
+      name: 'Modal',
+      component: () => import('@/views/modal/index')
+    }, {
       path: '/auto',
       name: 'Auto',
-      component: Auto
+      component: () => import('@/views/auto/index')
+    }, {
+      path: '/axios',
+      name: 'Axios',
+      component: () => import('@/views/axios/index')
     }
   ]
 })

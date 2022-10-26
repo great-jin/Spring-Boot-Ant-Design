@@ -56,14 +56,8 @@ export default {
       isRouterAlive: true,
       menuData: [
         {
-          key: 'show',
-          title: '页面弹窗'
-        }, {
           key: 'form',
           title: 'Form表单'
-        }, {
-          key: 'auto',
-          title: '动态表单'
         }, {
           key: 'formModel',
           title: 'Model表单'
@@ -71,8 +65,17 @@ export default {
           key: 'table',
           title: 'Table表格'
         }, {
+          key: 'modal',
+          title: '页面弹窗'
+        }, {
+          key: 'auto',
+          title: '动态表单'
+        }, {
           key: 'file',
           title: '文件上传'
+        }, {
+          key: 'axios',
+          title: 'Axios请求'
         }
       ]
     }
