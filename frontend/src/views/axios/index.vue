@@ -44,12 +44,14 @@ export default {
   },
   methods: {
     get1() {
-      get1().then(res => {
+      const _id = '123'
+      get1(_id).then(res => {
         this.response = res.data
       })
     },
     get2() {
-      get2().then(res => {
+      const _id = '123'
+      get2(_id).then(res => {
         this.response = res.data
       })
     },

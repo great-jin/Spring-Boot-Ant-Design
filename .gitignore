@@ -1,3 +1,7 @@
+# vscode
+.history
+.vscode
+
 # git
 *.orig
 
@@ -5,6 +9,7 @@
 dist
 build
 node_modules
+package-lock.json
 
 # IDEA
 .idea

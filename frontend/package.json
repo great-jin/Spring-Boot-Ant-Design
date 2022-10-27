@@ -2,12 +2,16 @@
   "name": "frontend",
   "version": "1.0.0",
   "description": "this is a vue demo for api test",
-  "author": "yweijin <yweijin@linewell.com>",
+  "author": "great <great__jin@163.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "tool": "npm install rimraf -g",
+    "clean": "npm cache clean --force && rimraf node_modules",
+    "install": "npm install",
+    "clean & install": "npm cache clean --force && rimraf node_modules && npm install"
   },
   "dependencies": {
     "ant-design-vue": "^1.7.8",
