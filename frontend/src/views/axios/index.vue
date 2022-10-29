@@ -1,20 +1,21 @@
 <template>
   <div :style="{padding: '50px'}">
     <a-row :style="{textAlign: 'center'}">
-      <a-button type="primary" @click="get1" :style="{margin: '0 20px'}">Get-1</a-button>
-      <a-button type="primary" @click="get2" :style="{margin: '0 20px'}">Get-2</a-button>
-      <a-button type="primary" @click="get3" :style="{margin: '0 20px'}">Get-3</a-button>
-      <a-button type="primary" @click="get4" :style="{margin: '0 20px'}">Get-4</a-button>
-      <a-button type="primary" @click="get5" :style="{margin: '0 20px'}">Get-5</a-button>
-      <a-button type="primary" @click="get6" :style="{margin: '0 20px'}">Get-6</a-button>
+      <a-button type="primary" @click="getOperation('get1')" :style="{margin: '0 20px'}">Get-1</a-button>
+      <a-button type="primary" @click="getOperation('get1_1')" :style="{margin: '0 20px'}">Get-1-1</a-button>
+      <a-button type="primary" @click="getOperation('get2')" :style="{margin: '0 20px'}">Get-2</a-button>
+      <a-button type="primary" @click="getOperation('get3')" :style="{margin: '0 20px'}">Get-3</a-button>
+      <a-button type="primary" @click="getOperation('get4')" :style="{margin: '0 20px'}">Get-4</a-button>
     </a-row>
     <br/><br/>
     <a-row :style="{textAlign: 'center'}">
-      <a-button type="primary" @click="post1" :style="{margin: '0 20px'}">Post-1</a-button>
-      <a-button type="primary" @click="post2" :style="{margin: '0 20px'}">Post-2</a-button>
-      <a-button type="primary" @click="post3" :style="{margin: '0 20px'}">Post-3</a-button>
-      <a-button type="primary" @click="post4" :style="{margin: '0 20px'}">Post-4</a-button>
-      <a-button type="primary" @click="post5" :style="{margin: '0 20px'}">Post-5</a-button>
+      <a-button type="primary" @click="postOperation('post1')" :style="{margin: '0 20px'}">Post-1</a-button>
+      <a-button type="primary" @click="postOperation('post2')" :style="{margin: '0 20px'}">Post-2</a-button>
+      <a-button type="primary" @click="postOperation('post3')" :style="{margin: '0 20px'}">Post-3</a-button>
+      <a-button type="primary" @click="postOperation('post4')" :style="{margin: '0 20px'}">Post-4</a-button>
+      <a-button type="primary" @click="postOperation('post5')" :style="{margin: '0 20px'}">Post-5</a-button>
+      <a-button type="primary" @click="postOperation('post6')" :style="{margin: '0 20px'}">Post-6</a-button>
+      <a-button type="primary" @click="postOperation('post7')" :style="{margin: '0 20px'}">Post-7</a-button>
     </a-row>
     <br/><br/>
     <a-row :style="{textAlign: 'center'}">
@@ -32,8 +33,8 @@
 </template>
 
 <script>
-import {get1, get2, get3, get4, get5, get6} from "@/api/test/getAPI";
-import {post1, post2, post3, post4, post5} from "@/api/test/postAPI";
+import {get1, get1_1, get2, get3, get4} from "@/api/test/getAPI";
+import {post1, post2, post3, post4, post5, post6, post7} from "@/api/test/postAPI";
 
 export default {
   name: "index",
@@ -43,63 +44,134 @@ export default {
     }
   },
   methods: {
-    get1() {
-      const _id = '123'
-      get1(_id).then(res => {
-        this.response = res.data
-      })
+    async getOperation(type) {
+      let _params = {}
+      let _student = {}
+      this.$message.info(type)
+      switch (type) {
+        case 'get1':
+          await get1('123').then(res => {
+            this.response = res.data
+          })
+          break
+        case 'get1_1':
+          _params = {
+            id: '123'
+          }
+          await get1_1(_params).then(res => {
+            this.response = res.data
+          })
+          break
+        case 'get2':
+          _params = {
+            id: '123'
+          }
+          await get2(_params).then(res => {
+            this.response = res.data
+          })
+          break
+        case 'get3':
+          _params = {
+            id: '123',
+            message: 'hello'
+          }
+          await get3(_params).then(res => {
+            this.response = res.data
+          })
+          break
+        case 'get4':
+          _student = {
+            id: '123',
+            name: 'alex',
+            score: 0
+          }
+          await get4(_student).then(res => {
+            this.response = res.data
+          })
+          break
+      }
+      console.log(type, this.response)
     },
-    get2() {
-      const _id = '123'
-      get2(_id).then(res => {
-        this.response = res.data
-      })
-    },
-    get3() {
-      get3().then(res => {
-        this.response = res.data
-      })
-
-    },
-    get4() {
-      get4().then(res => {
-        this.response = res.data
-      })
-    },
-    get5() {
-      get5().then(res => {
-        this.response = res.data
-      })
-    },
-    get6() {
-      get6().then(res => {
-        this.response = res.data
-      })
-    },
-    post1() {
-      post1().then(res => {
-        this.response = res.data
-      })
-    },
-    post2() {
-      post2().then(res => {
-        this.response = res.data
-      })
-    },
-    post3() {
-      post3().then(res => {
-        this.response = res.data
-      })
-    },
-    post4() {
-      post4().then(res => {
-        this.response = res.data
-      })
-    },
-    post5() {
-      post5().then(res => {
-        this.response = res.data
-      })
+    // ----------------------------
+    async postOperation(type) {
+      let _params = {}
+      let _student = {}
+      let _teacher = {}
+      this.$message.info(type)
+      switch (type) {
+        case 'post1':
+          _params = {
+            id: '123'
+          }
+          await post1(_params).then(res => {
+            this.response = res.data
+          })
+          break
+        case 'post2':
+          _params = {
+            id: '123'
+          }
+          await post2(_params).then(res => {
+            this.response = res.data
+          })
+          break
+        case 'post3':
+          _params = {
+            id: '123',
+            message: 'hello'
+          }
+          await post3(_params).then(res => {
+            this.response = res.data
+          })
+          break
+        case 'post4':
+          _student = {
+            id: '123',
+            name: 'alex',
+            score: 0
+          }
+          await post4(_student).then(res => {
+            this.response = res.data
+          })
+          break
+        case 'post5':
+          _student = {
+            id: '123',
+            name: 'alex',
+            score: 0
+          }
+          await post5(_student).then(res => {
+            this.response = res.data
+          })
+          break
+        case 'post6':
+          _params = {
+            id: '123'
+          }
+          _teacher = {
+            id: '456',
+            name: 'alex'
+          }
+          await post6(_params, _teacher).then(res => {
+            this.response = res.data
+          })
+          break
+        case 'post7':
+          _student = {
+            id: '123',
+            name: 'alex',
+            score: 80
+          }
+          _teacher = {
+            id: '456',
+            name: 'beth'
+          }
+          await post7(_student, _teacher).then(res => {
+            this.response = res.data
+          })
+          break
+      }
+      console.log(type, this.response)
     }
   }
 }
