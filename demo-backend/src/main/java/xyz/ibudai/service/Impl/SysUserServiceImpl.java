@@ -49,8 +49,10 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public Page<SysUser> queryByPage(SysUser sysUser, PageRequest pageRequest) {
+        // 查询分页数据
         long total = this.sysUserDao.count(sysUser);
-        return new PageImpl<>(this.sysUserDao.queryAllByLimit(sysUser, pageRequest), pageRequest, total);
+        List<SysUser> data = this.sysUserDao.queryAllByLimit(sysUser, pageRequest);
+        return new PageImpl<>(data, pageRequest, total);
     }
 
     /**

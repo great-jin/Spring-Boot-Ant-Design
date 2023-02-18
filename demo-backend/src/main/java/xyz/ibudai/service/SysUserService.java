@@ -23,7 +23,6 @@ public interface SysUserService {
     SysUser queryById(Integer id);
 
     /**
-     *
      * @return
      */
     List<SysUser> queryAll();

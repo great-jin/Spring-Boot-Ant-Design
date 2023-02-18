@@ -17,7 +17,7 @@ import java.util.List;
  * @since 2022-07-20 10:21:46
  */
 @RestController
-@RequestMapping("sysUser")
+@RequestMapping("/api/sysUser")
 public class SysUserController {
     /**
      * 服务对象
@@ -29,11 +29,15 @@ public class SysUserController {
      * 分页查询
      *
      * @param sysUser     筛选条件
-     * @param pageRequest 分页对象
+     * @param offset      分页对象
+     * @param limit       分页对象
      * @return 查询结果
      */
-    @GetMapping
-    public ResponseEntity<Page<SysUser>> queryByPage(SysUser sysUser, PageRequest pageRequest) {
+    @GetMapping("page")
+    public ResponseEntity<Page<SysUser>> queryByPage(SysUser sysUser,
+                                                     @RequestParam("offset") int offset,
+                                                     @RequestParam("limit") int limit) {
+        PageRequest pageRequest = PageRequest.of(offset, limit);
         return ResponseEntity.ok(this.sysUserService.queryByPage(sysUser, pageRequest));
     }
 
