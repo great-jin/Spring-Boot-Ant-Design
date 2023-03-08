@@ -1,8 +1,10 @@
 package xyz.ibudai.utils;
 
 import io.minio.*;
+
 import java.util.*;
 import java.io.InputStream;
+
 import io.minio.messages.Bucket;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,5 +192,4 @@ public class MinioUtil {
                 .expiry(expires)
                 .build());
     }
-
 }

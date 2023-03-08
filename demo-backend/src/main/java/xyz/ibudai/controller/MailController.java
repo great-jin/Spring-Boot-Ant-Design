@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import xyz.ibudai.entity.Mail;
 
 @RestController
-@RequestMapping(value = "/mail")
+@RequestMapping(value = "/api/mail")
 public class MailController {
 
     @Autowired

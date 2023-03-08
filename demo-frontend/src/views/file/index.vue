@@ -22,7 +22,7 @@
 import uploadModal from './uploadModal'
 import {downloadFile} from '@/api/files.js';
 import {downloadExcel} from '@/api/files.js';
-import {minioDownload} from '@/api/minioFile.js';
+import {minioDownload} from '@/api/minio.js';
 
 export default {
   components: {

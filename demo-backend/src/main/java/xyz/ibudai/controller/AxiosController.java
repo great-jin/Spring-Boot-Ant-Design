@@ -5,7 +5,7 @@ import xyz.ibudai.entity.Student;
 import xyz.ibudai.entity.Teacher;
 
 @RestController
-@RequestMapping("api/axios")
+@RequestMapping("/api/axios")
 public class AxiosController {
 
     /**

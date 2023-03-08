@@ -3,7 +3,7 @@ import request from "./util/axios";
 export function uploadFile(params) {
   return request({
     method: 'post',
-    url: '/minio/upload',
+    url: '/api/minio/upload',
     data: params,
     headers: {
       'Content-Type': 'multipart/form-data'
@@ -13,7 +13,7 @@ export function uploadFile(params) {
 
 export function minioDownload(params) {
   return request({
-    url: '/minio/download',
+    url: '/api/minio/download',
     method: 'post',
     data: params,
     responseType: 'blob'

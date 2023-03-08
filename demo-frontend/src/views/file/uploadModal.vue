@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { uploadFile } from '@/api/minioFile.js';
+import { uploadFile } from '@/api/minio.js';
 
 export default {
   name: "UploadModal",

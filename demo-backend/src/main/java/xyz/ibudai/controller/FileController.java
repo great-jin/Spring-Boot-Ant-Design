@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("files")
+@RequestMapping("/api/files")
 public class FileController {
 
     @Autowired

@@ -2,7 +2,7 @@ import request from './util/axios';
 
 export const downloadFile = params => request({
   method: 'get',
-  url: '/files/downloadFile',
+  url: '/api/files/downloadFile',
   params: params,
   responseType: 'blob',
   headers: {
@@ -46,7 +46,7 @@ export const downloadFile = params => request({
 
 export const downloadExcel = params => request({
   method: 'get',
-  url: '/files/downloadExcel',
+  url: '/api/files/downloadExcel',
   params: params,
   responseType: 'blob',
   headers: {
