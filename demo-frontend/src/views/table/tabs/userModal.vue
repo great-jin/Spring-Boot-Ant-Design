@@ -12,7 +12,8 @@
         type="primary"
         :hidden="isDetail"
         @click="ok()"
-      >确定</a-button>
+      >确定
+      </a-button>
     </template>
 
     <a-spin :spinning="loading">
@@ -25,7 +26,9 @@
           <a-input
             placeholder="Account Code"
             :disabled="isDetail || isEdit"
-            v-decorator="['accountCode', { rules: [{ required: true, message: '账号不能为空!' }] }]"
+            v-decorator="[
+              'accountCode',
+              { rules: [{ required: true, message: '账号不能为空!' }] }]"
           />
         </a-form-item>
 
@@ -37,8 +40,10 @@
           <a-input
             placeholder="UserName"
             :disabled="isDetail"
-            v-decorator="['userName', { rules: [{ required: true, message: '用户名不能为空!' }] }]"
-            />
+            v-decorator="[
+              'userName',
+              { rules: [{ required: true, message: '用户名不能为空!' }] }]"
+          />
         </a-form-item>
 
         <a-form-item
@@ -49,8 +54,10 @@
           <a-input
             placeholder="Password"
             :disabled="isDetail"
-            v-decorator="['password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
-            />
+            v-decorator="[
+              'password',
+              { rules: [{ required: true, message: '密码不能为空!' }] }]"
+          />
         </a-form-item>
       </a-form>
     </a-spin>
@@ -58,7 +65,7 @@
 </template>
 
 <script>
-import { getUser, addUser, updateUser} from '@/api/user.js';
+import {getSysUser, addSysUser, updateSysUser} from '@/api/sysUser.js';
 
 export default {
   name: "UserModal",
@@ -70,14 +77,14 @@ export default {
       isDetail: false,
       isEdit: false,
       formItemLayout: {
-        labelCol: { span: 7 },
-        wrapperCol: { span: 14 }
+        labelCol: {span: 7},
+        wrapperCol: {span: 14}
       },
       form: this.$form.createForm(this)
     }
   },
   methods: {
-    paramReceive (type, data) {
+    paramReceive(type, data) {
       this.type = type
       this.visible = true
       this.loading = false
@@ -101,10 +108,10 @@ export default {
     ok() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
-          const { type } = this
+          const {type} = this
           switch (type) {
             case 'add':
-              addUser(values).then(res =>{
+              addSysUser(values).then(res => {
                 switch (res.data) {
                   case 1 :
                     this.$message.success('新增成功')
@@ -119,8 +126,8 @@ export default {
               })
               break
             case 'edit':
-              updateUser(values).then(res =>{
-                if (res.data === 1){
+              updateSysUser(values).then(res => {
+                if (res.data === 1) {
                   this.$message.success('更新成功')
                 } else {
                   this.$message.error('更新失败')
@@ -134,8 +141,8 @@ export default {
     },
     setFormValue(data) {
       const code = data
-      if(code !== '') {
-        getUser(code).then(res =>{
+      if (code !== '') {
+        getSysUser(code).then(res => {
           this.form.setFieldsValue({
             accountCode: res.data.accountCode,
             userName: res.data.userName,

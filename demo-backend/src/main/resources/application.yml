@@ -49,23 +49,10 @@ spring:
           starttls.enable: true
           starttls.required: true
 
-# Minio数据库
-minio:
-  endpoint: http://192.168.0.20:9000
-  accessKey: minioadmin
-  secretKey: minioadmin
-
-# 绑定mybatis
+# 绑定 MyBatis
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: xyz.ibudai.entity
   # 控制台打印 sql 语句
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-# pageHepler分页插件
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql

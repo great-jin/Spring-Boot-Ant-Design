@@ -3,4 +3,4 @@
 - 前端：Vue + Ant Design
 - 后端：Spring Boot
 - 前后端交互：Axios
-- 数据库： MySQL + MinIO
+- 数据库： MySQL

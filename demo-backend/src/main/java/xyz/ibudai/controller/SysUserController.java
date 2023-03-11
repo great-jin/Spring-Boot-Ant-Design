@@ -27,11 +27,21 @@ public class SysUserController {
     private SysUserService sysUserService;
 
     /**
+     * 全量查询
+     *
+     * @return
+     */
+    @GetMapping("list")
+    public ResponseEntity<List<SysUser>> List() {
+        return ResponseEntity.ok(this.sysUserService.queryAll());
+    }
+
+    /**
      * 分页查询
      *
-     * @param sysUser     筛选条件
-     * @param offset      分页对象
-     * @param limit       分页对象
+     * @param sysUser 筛选条件
+     * @param offset  分页对象
+     * @param limit   分页对象
      * @return 查询结果
      */
     @GetMapping("page")
@@ -42,19 +52,14 @@ public class SysUserController {
         return ResponseEntity.ok(this.sysUserService.queryByPage(sysUser, pageRequest));
     }
 
-    @GetMapping("list")
-    public ResponseEntity<List<SysUser>> List() {
-        return ResponseEntity.ok(this.sysUserService.queryAll());
-    }
-
     /**
      * 通过主键查询单条数据
      *
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
-    public ResponseEntity<SysUser> queryById(@PathVariable("id") Integer id) {
+    @GetMapping("get")
+    public ResponseEntity<SysUser> queryById(@RequestParam("id") Integer id) {
         return ResponseEntity.ok(this.sysUserService.queryById(id));
     }
 
@@ -64,7 +69,7 @@ public class SysUserController {
      * @param sysUser 实体
      * @return 新增结果
      */
-    @PostMapping
+    @PostMapping("add")
     public ResponseEntity<SysUser> add(SysUser sysUser) {
         return ResponseEntity.ok(this.sysUserService.insert(sysUser));
     }
@@ -75,8 +80,8 @@ public class SysUserController {
      * @param sysUser 实体
      * @return 编辑结果
      */
-    @PutMapping
-    public ResponseEntity<SysUser> edit(SysUser sysUser) {
+    @PostMapping("edit")
+    public ResponseEntity<SysUser> edit(@RequestBody SysUser sysUser) {
         return ResponseEntity.ok(this.sysUserService.update(sysUser));
     }
 
@@ -86,10 +91,9 @@ public class SysUserController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
+    @PostMapping("delete")
     public ResponseEntity<Boolean> deleteById(Integer id) {
         return ResponseEntity.ok(this.sysUserService.deleteById(id));
     }
-
 }
 

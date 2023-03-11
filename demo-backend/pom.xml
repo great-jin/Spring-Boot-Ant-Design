@@ -22,12 +22,11 @@
         <javax.version>1.0</javax.version>
         <commons-pool2.version>2.11.1</commons-pool2.version>
         <commons-pool3.version>3.8.1</commons-pool3.version>
-        <minio.version>8.0.3</minio.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-fileupload.version>1.4</commons-fileupload.version>
         <commons-codec.version>1.8</commons-codec.version>
+         <easyexcel.version>3.1.1</easyexcel.version>
         <junit.version>4.13.2</junit.version>
-        <easyexcel.version>3.1.1</easyexcel.version>
     </properties>
 
      <dependencies>
@@ -89,18 +88,12 @@
             <artifactId>commons-lang3</artifactId>
             <version>${commons-pool3.version}</version>
         </dependency>
-        <!-- Minio数据库 -->
-        <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
-            <version>${minio.version}</version>
-        </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
-        <!-- 文件上传 -->
+         <!-- 文件上传 -->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -122,12 +115,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-        </dependency>
-        <!-- SpringBoot测试 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

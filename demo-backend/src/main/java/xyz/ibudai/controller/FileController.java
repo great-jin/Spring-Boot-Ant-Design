@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/files")
+@RequestMapping("/api/file")
 public class FileController {
 
     @Autowired
@@ -44,7 +44,9 @@ public class FileController {
 
         List<SysUser> userList = sysUserService.queryAll();
         List<String> header = new ArrayList<>();
-        List<List<String>> collect = header.stream().map(Arrays::asList).collect(Collectors.toList());
+        List<List<String>> collect = header.stream()
+                .map(Arrays::asList)
+                .collect(Collectors.toList());
         EasyExcel.write(response.getOutputStream())
                 .head(collect)
                 .sheet("Info")

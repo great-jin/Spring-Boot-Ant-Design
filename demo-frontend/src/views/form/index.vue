@@ -58,7 +58,8 @@
 </template>
 
 <script>
-import { Login } from '@/api/user.js';
+import { login } from '@/api/sysUser.js';
+
 export default {
   name: 'User',
   data() {
@@ -75,7 +76,7 @@ export default {
     login() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
-          Login(values).then(res =>{
+          login(values).then(res =>{
             switch (res.data) {
               case 1 :
                 this.$message.success('登录成功')

@@ -19,7 +19,7 @@
 <script>
 import {columns} from "./const";
 import userModal from './userModal'
-import {listUser, getPage} from "@/api/sysUsers";
+import {getPage} from "@/api/sysUser.js";
 
 export default {
   inject: ['reload'],
