@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import axios from 'axios';
 
 function request(axiosConfig) {
@@ -9,14 +10,22 @@ function request(axiosConfig) {
   service.interceptors.request.use(config => {
     return config
   }, err => {
-    console.log(err);
+    const errorBody = err.response.data
+    Vue.prototype.$notification['error']({
+      message: errorBody.error,
+      description: errorBody,
+    });
   })
 
   // 响应拦截
   service.interceptors.response.use(res => {
     return res
   }, err => {
-    console.log(err);
+    const errorBody = err.response.data
+    Vue.prototype.$notification['error']({
+      message: 'Internal Server Error',
+      description: errorBody.error,
+    });
   })
 
   return service(axiosConfig)

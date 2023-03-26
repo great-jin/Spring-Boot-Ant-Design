@@ -30,6 +30,10 @@ export default new Router({
       path: '/auto',
       name: 'Auto',
       component: () => import('@/views/auto/index')
+    }, {
+      path: '/axios',
+      name: 'Axios',
+      component: () => import('@/views/axios/index')
     }
   ]
 })
