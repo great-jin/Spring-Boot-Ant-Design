@@ -1,5 +1,7 @@
 package xyz.ibudai.config;
 
+/*
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import xyz.ibudai.common.ResultData;
 import java.util.Map;
 
 @ControllerAdvice
-public class ResponseAdvice implements ResponseBodyAdvice<Object> {
+public class ResponseConfig implements ResponseBodyAdvice<Object> {
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -53,3 +55,8 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     }
 }
 
+*/
+
+public class ResponseConfig {
+
+}
