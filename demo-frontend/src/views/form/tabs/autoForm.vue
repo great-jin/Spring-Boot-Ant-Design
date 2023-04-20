@@ -17,13 +17,13 @@
       <a-row
         :gutter="2"
         v-for="(item, index) in form.contactList"
-        :key="index"
+        :key="autoForm"
         style="margin-bottom: 15px"
       >
         <a-col :span="11">
           <a-form-model-item
             label="联系人"
-            :prop="`contactList.${index}.contactName`"
+            :prop="`contactList.${autoForm}.contactName`"
             :rules="[{ required: true, message: '联系人不能为空', trigger:['change', 'blur'] }]"
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
@@ -39,7 +39,7 @@
         <a-col :span="11">
           <a-form-model-item
             label="联系方式"
-            :prop="`contactList.${index}.contactPhone`"
+            :prop="`contactList.${autoForm}.contactPhone`"
             :rules="[{ required: true, message: '联系方式不能为空', trigger:['change', 'blur'] }]"
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"

@@ -1,5 +1,16 @@
 import request from './util/axios';
 
+export function uploadFile(params) {
+  return request({
+    method: 'post',
+    url: '/api/minio/upload',
+    data: params,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}
+
 export const downloadFile = params => request({
   method: 'get',
   url: '/api/files/downloadFile',

@@ -1,23 +1,23 @@
 <template>
   <a-tabs type="card" :style="{margin: '10px 30px'}">
-    <a-tab-pane key="1" tab="Tab 1">
-      <tab-one />
+    <a-tab-pane key="1" tab="Basic Table">
+      <basic-table />
     </a-tab-pane>
-    <a-tab-pane key="2" tab="Tab 2">
-      <tab-two />
+    <a-tab-pane key="2" tab="Pagination Table">
+      <page-table />
     </a-tab-pane>
   </a-tabs>
 </template>
 
 <script>
-import tabOne from './tabs/tabOne.vue'
-import tabTwo from './tabs/tabTwo.vue'
+import basicTable from './tabs/basicTable.vue'
+import pageTable from './tabs/pageTable.vue'
 
 export default {
   inject: ['reload'],
   components: {
-    tabOne,
-    tabTwo
+    basicTable,
+    pageTable
   }
 }
 </script>

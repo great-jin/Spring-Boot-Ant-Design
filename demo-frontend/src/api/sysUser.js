@@ -2,14 +2,6 @@ import request from './util/axios';
 
 const prefix = '/api/sysUser';
 
-export function login(params) {
-  return request({
-    url: `${prefix}/login`,
-    method: 'post',
-    data: params
-  })
-}
-
 export function listUser() {
   return request({
     url: `${prefix}/list`,
@@ -25,19 +17,19 @@ export function getPage(params) {
   })
 }
 
-export function addSysUser(params) {
-  return request({
-    url: `${prefix}/add`,
-    method: 'post',
-    data: params
-  })
-}
-
 export function getSysUser(params) {
   return request({
     url: `${prefix}/get`,
     method: 'get',
     params: params
+  })
+}
+
+export function addSysUser(params) {
+  return request({
+    url: `${prefix}/add`,
+    method: 'post',
+    data: params
   })
 }
 

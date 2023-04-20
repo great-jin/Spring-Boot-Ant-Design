@@ -29,7 +29,7 @@
               :key="index"
               @click="routePage(item.key)"
             >
-              <a-icon type="user-add"/>
+              <a-icon :type="item.icon"/>
               <span>{{ item.title }}</span>
             </a-menu-item>
           </a-menu>
@@ -57,25 +57,24 @@ export default {
       menuData: [
         {
           key: 'form',
-          title: 'Form表单'
-        }, {
-          key: 'formModel',
-          title: 'Model表单'
+          title: '表单',
+          icon: 'form'
         }, {
           key: 'table',
-          title: 'Table表格'
+          title: '表格',
+          icon: 'bar-chart'
         }, {
           key: 'modal',
-          title: '页面弹窗'
-        }, {
-          key: 'auto',
-          title: '动态表单'
+          title: '弹窗',
+          icon: 'alert'
         }, {
           key: 'file',
-          title: '文件上传'
+          title: '文件上传',
+          icon: 'cloud-download'
         }, {
           key: 'axios',
-          title: 'Axios请求'
+          title: 'Axios请求',
+          icon: 'select'
         }
       ]
     }

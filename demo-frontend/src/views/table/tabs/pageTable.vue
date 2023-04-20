@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import {columns} from "./const";
-import userModal from './userModal'
+import {columns} from "../const";
+import userModal from '../userModal'
 import {getPage} from "@/api/sysUser.js";
 
 export default {
