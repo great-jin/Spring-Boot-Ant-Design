@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import xyz.ibudai.common.ResultData;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class MyResponseBodyAdvice implements ResponseBodyAdvice<Object> {
+public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 
     @Autowired
     private ObjectMapper objectMapper;
