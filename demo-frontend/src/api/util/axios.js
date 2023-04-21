@@ -3,20 +3,18 @@ import axios from 'axios';
 
 function request(axiosConfig) {
   const service = axios.create({
-    baseURL: '/api',   // 设置统一的请求前缀
-    timeout: 100000,    // 设置统一的超时时长
-  });
-
+    baseURL: '/web-demo',   // 设置统一的请求前缀
+    timeout: 300000         // 设置统一的超时时长
+  })
   service.interceptors.request.use(config => {
     return config
   }, err => {
     const errorBody = err.response.data
     Vue.prototype.$notification['error']({
       message: errorBody.error,
-      description: errorBody,
-    });
+      description: errorBody
+    })
   })
-
   // 响应拦截
   service.interceptors.response.use(res => {
     return res
@@ -24,10 +22,9 @@ function request(axiosConfig) {
     const errorBody = err.response.data
     Vue.prototype.$notification['error']({
       message: 'Internal Server Error',
-      description: errorBody.error,
-    });
+      description: errorBody.error
+    })
   })
-
   return service(axiosConfig)
 }
 

@@ -22,7 +22,7 @@
         <a-input
           placeholder="Please input user name"
           v-decorator="[
-            'userName',
+            'username',
             { rules: [{ required: true, message: '用户名不能为空!' }] },
           ]"
         />
@@ -85,6 +85,10 @@ export default {
         if (!errors) {
           authVerify(values).then((res) => {
             if (res.data) {
+              const token = res.headers.token
+              if (token !== undefined && token !== null) {
+                localStorage.setItem(values.username, token)
+              }
               this.$message.success("Login successful.");
               this.clear();
             } else {

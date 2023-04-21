@@ -21,7 +21,7 @@ public class AuthUser implements Serializable, UserDetails {
 
     private String id;
 
-    private String userName;
+    private String username;
 
     private String password;
 
@@ -52,7 +52,7 @@ public class AuthUser implements Serializable, UserDetails {
 
     @Override
     public String getUsername() {
-        return this.userName;
+        return this.username;
     }
 
     @Override
@@ -62,22 +62,22 @@ public class AuthUser implements Serializable, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.accountNonExpired == 1;
+        return this.accountNonExpired != null && this.accountNonExpired == 1;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.accountNonLocked == 1;
+        return this.accountNonLocked != null && this.accountNonLocked == 1;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.credentialsNonExpired == 1;
+        return this.credentialsNonExpired != null && this.credentialsNonExpired == 1;
     }
 
     @Override
     public boolean isEnabled() {
-        return this.isEnabled == 1;
+        return this.isEnabled != null && this.isEnabled == 1;
     }
 
     public String getId() {
@@ -88,8 +88,8 @@ public class AuthUser implements Serializable, UserDetails {
         this.id = id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPassword(String password) {
@@ -142,6 +142,16 @@ public class AuthUser implements Serializable, UserDetails {
 
     public void setIsEnabled(Integer isEnabled) {
         this.isEnabled = isEnabled;
+    }
+
+    @Override
+    public String toString() {
+        return "TbUser{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
 

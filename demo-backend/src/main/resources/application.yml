@@ -4,19 +4,29 @@ server:
   tomcat:
     uri-encoding: utf-8
 
+# Security auth
+auth:
+  host:
+    cors: http://localhost:8080,http://127.0.0.1:8080
+  api:
+    verify: /api/auth/verify
+    free: /api/auth/verify,/api/test/**,/api/file/**,/api/sysUser/**
+    user: /api/resource/user/**
+    admin: /api/resource/admin/**
+
 spring:
   # MySQL 数据库
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.0.20:3306/test_db?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://10.231.6.21:3306/budai?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-    password: 123456
+    password: budai#123456
     # 阿里连接池配置
     druid:
       initial-size: 5
       max-active: 30
-      min-idle: 10
-      max-wait: 6000
+      min-idle: 5
+      max-wait: 10000
       # SQL防火墙
       filters: stat, wall
       # 配置监控选项，访问路径：http://localhost:9090/druid/

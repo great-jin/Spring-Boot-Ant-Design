@@ -4,7 +4,7 @@
 
     <resultMap type="xyz.ibudai.entity.AuthUser" id="TbUserMap">
         <result property="id" column="id" jdbcType="VARCHAR"/>
-        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="username" column="user_name" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
         <result property="role" column="role" jdbcType="VARCHAR"/>
         <result property="authority" column="authority" jdbcType="VARCHAR"/>
@@ -39,7 +39,7 @@
         select
         <include refid="BaseColumnList"/>
         from auth_user
-        where user_name = #{userName}
+        where user_name = #{username}
     </select>
 
     <!--查询指定行数据-->
@@ -51,8 +51,8 @@
             <if test="id != null and id != ''">
                 and id = #{id}
             </if>
-            <if test="userName != null and userName != ''">
-                and user_name = #{userName}
+            <if test="username != null and username != ''">
+                and user_name = #{username}
             </if>
             <if test="password != null and password != ''">
                 and password = #{password}
@@ -78,8 +78,8 @@
             <if test="id != null and id != ''">
                 and id = #{id}
             </if>
-            <if test="userName != null and userName != ''">
-                and user_name = #{userName}
+            <if test="username != null and username != ''">
+                and user_name = #{username}
             </if>
             <if test="password != null and password != ''">
                 and password = #{password}
@@ -99,14 +99,14 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into auth_user(user_name, password, role, authority, is_enabled)
-        values (#{userName}, #{password}, #{role}, #{authority}, #{isEnabled})
+        values (#{username}, #{password}, #{role}, #{authority}, #{isEnabled})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
         insert into auth_user(user_name, password, role, authority, is_enabled)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.userName}, #{entity.password}, #{entity.role}, #{entity.authority}, #{entity.isEnabled})
+            (#{entity.username}, #{entity.password}, #{entity.role}, #{entity.authority}, #{entity.isEnabled})
         </foreach>
     </insert>
 
@@ -114,7 +114,7 @@
         insert into auth_user(user_name, password, role, authority, is_enabled)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.userName}, #{entity.password}, #{entity.role}, #{entity.authority}, #{entity.isEnabled})
+            (#{entity.username}, #{entity.password}, #{entity.role}, #{entity.authority}, #{entity.isEnabled})
         </foreach>
         on duplicate key update
         user_name = values(user_name),
@@ -128,8 +128,8 @@
     <update id="update">
         update auth_user
         <set>
-            <if test="userName != null and userName != ''">
-                user_name = #{userName},
+            <if test="username != null and username != ''">
+                user_name = #{username},
             </if>
             <if test="password != null and password != ''">
                 password = #{password},
