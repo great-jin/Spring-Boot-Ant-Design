@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -29,3 +29,18 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token')
+  if (to.path !== '/form' && token === null) {
+    next('/form')
+    Vue.prototype.$notification['error']({
+      message: 'Please login',
+      description: 'Please login'
+    })
+  } else {
+    next()
+  }
+})
+
+export default router

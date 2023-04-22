@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import {Encrypt} from "@/utils/AES.js";
 import {user, admin} from "@/api/resource.js";
 import {authVerify} from "@/api/auth.js";
 
@@ -91,6 +92,7 @@ export default {
     verify() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
+          values.password = Encrypt(values.password)
           authVerify(values).then((res) => {
             if (res.data.data) {
               const auth = res.headers['auth']

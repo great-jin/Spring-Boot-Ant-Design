@@ -77,6 +77,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(this::successHandle)
                 // 认证失败逻辑
                 .failureHandler(this::failureHandle)
+                // 未认证访问受限资源逻辑
+                .and().exceptionHandling().authenticationEntryPoint(this::unAuthHandle)
                 .and().httpBasic()
                 // 允许跨域
                 .and().cors()
@@ -99,7 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             throw new RuntimeException(e);
         }
         response.addHeader("token", token);
-        String auth = user.getUsername() + ":" + plainPwd;
+        String auth = user.getUsername() + ":" + user.getPassword();
         response.addHeader("auth", "Basic " + Base64.getEncoder().encodeToString(auth.getBytes()));
         response.setContentType("application/json;charset=UTF-8");
         ResultData<Object> result = new ResultData<>(200, "success", true);
@@ -115,6 +117,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         } else {
             msg = "Account doesn't exist, please recheck.";
         }
+        response.setContentType("application/json;charset=UTF-8");
+        response.setStatus(203);
+        ResultData<Object> result = new ResultData<>(203, msg, null);
+        response.getWriter().write(objectMapper.writeValueAsString(result));
+    }
+
+    private void unAuthHandle(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
+        String msg = "Please login and try again.";
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(203);
         ResultData<Object> result = new ResultData<>(203, msg, null);

@@ -8,8 +8,14 @@ function request(axiosConfig) {
     timeout: 300000         // 设置统一的超时时长
   })
   service.interceptors.request.use(config => {
-    config.headers['Token'] = getToken()[0]
-    config.headers['Authorization'] = getToken()[1]
+    const token = getToken()[0]
+    if (token !== '') {
+      config.headers['Token'] = token
+    }
+    const auth = getToken()[1]
+    if (auth !== '') {
+      config.headers['Authorization'] = auth
+    }
     return config
   }, err => {
     const errorBody = err.response.data
@@ -23,10 +29,10 @@ function request(axiosConfig) {
     if (res.status === 203) {
       Vue.prototype.$notification['error']({
         message: 'Non-Authoritative',
-        description: 'Non-Authoritative'
+        description: res.data.msg
       })
       // No auth, redirect to home
-      router.push('/form')
+      // router.push('/form')
     }
     return res
   }, err => {

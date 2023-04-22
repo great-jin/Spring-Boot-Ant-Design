@@ -12,8 +12,14 @@ public class AESEncoder implements PasswordEncoder {
      */
     @Override
     public String encode(CharSequence charSequence) {
-        String plain = charSequence.toString();
+        String str = charSequence.toString();
         try {
+            String plain;
+            if (!Objects.equals(str, "userNotFoundPassword")) {
+                plain = AESUtil.desEncrypt(str);
+            } else {
+                plain = str;
+            }
             return AESUtil.encrypt(plain);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -26,8 +32,8 @@ public class AESEncoder implements PasswordEncoder {
      */
     @Override
     public boolean matches(CharSequence charSequence, String s) {
-        String plain = charSequence.toString();
         try {
+            String plain = AESUtil.desEncrypt(charSequence.toString());
             String result = AESUtil.encrypt(plain);
             return Objects.equals(result, s);
         } catch (Exception e) {
