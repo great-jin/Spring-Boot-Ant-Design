@@ -1,6 +1,5 @@
 package xyz.ibudai.dao;
 
-import org.apache.ibatis.annotations.Mapper;
 import xyz.ibudai.entity.AuthUser;
 
 /**
@@ -9,7 +8,6 @@ import xyz.ibudai.entity.AuthUser;
  * @author makejava
  * @since 2023-01-31 14:31:28
  */
-@Mapper
 public interface AuthUserDao {
 
     /**

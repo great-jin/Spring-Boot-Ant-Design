@@ -20,11 +20,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/file")
-public class FileController {
+@RequestMapping("api/request")
+public class APIController {
 
     @Autowired
     SysUserService sysUserService;
+
+    @GetMapping("demo1")
+    public String demo1() {
+        return "Hello world!";
+    }
+
+    @GetMapping("demo2")
+    public void demo2() {
+        throw new RuntimeException("Programme error.");
+    }
 
     @GetMapping("downloadFile")
     public void downloadFiles(@RequestParam(value = "Info") String Info,

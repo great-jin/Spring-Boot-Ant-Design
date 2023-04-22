@@ -16,7 +16,11 @@ public class AuthController {
     private AuthUserService authUserService;
 
     @PostMapping("verify")
-    public boolean authVerify(@RequestBody AuthUser user) throws Exception {
-        return authUserService.authVerify(user);
+    public void authVerify(AuthUser user) {
+    }
+
+    @PostMapping("login")
+    public boolean login(AuthUser user) throws Exception {
+        return authUserService.login(user);
     }
 }

@@ -9,8 +9,7 @@
         <a-input
           placeholder="Please input account"
           v-decorator="[
-            'id',
-            { rules: [{ required: true, message: '账号不能为空!' }] },
+            'id'
           ]"
         />
       </a-form-item>
@@ -32,7 +31,7 @@
         :label-col="formLayout.labelCol"
         :wrapper-col="formLayout.wrapperCol"
       >
-        <a-input
+        <a-input-password
           placeholder="Please input password"
           v-decorator="[
             'password',
@@ -43,38 +42,47 @@
 
       <a-form-item>
         <a-row style="text-align: center">
-          <a-button type="primary" @click="verify" style="margin: 0 25px"
-            >登录</a-button
-          >
-          <a-button type="primary" @click="clear" style="margin: 0 25px"
-            >取消</a-button
-          >
+          <a-button type="primary"
+                    @click="verify"
+                    style="margin: 0 25px"
+          >登录
+          </a-button>
+          <a-button type="primary"
+                    @click="clear"
+                    style="margin: 0 25px"
+          >取消
+          </a-button>
+          <a-button type="primary"
+                    @click="resource('logout')"
+                    style="margin: 0 25px"
+          >登出
+          </a-button>
         </a-row>
       </a-form-item>
     </a-form>
 
     <a-row style="text-align: center; margin-top: 20px">
       <a-button type="primary" @click="resource('user')" style="margin: 0 25px"
-        >User</a-button
-      >
+      >User
+      </a-button>
       <a-button type="primary" @click="resource('admin')" style="margin: 0 25px"
-        >Admin</a-button
-      >
+      >Admin
+      </a-button>
     </a-row>
   </div>
 </template>
 
 <script>
-import { authVerify } from "@/api/auth.js";
-import { user, admin } from "@/api/resource.js";
+import {user, admin} from "@/api/resource.js";
+import {authVerify} from "@/api/auth.js";
 
 export default {
   name: "User",
   data() {
     return {
       formLayout: {
-        labelCol: { span: 7 },
-        wrapperCol: { span: 14 },
+        labelCol: {span: 7},
+        wrapperCol: {span: 14},
       },
       form: this.$form.createForm(this),
     };
@@ -84,12 +92,16 @@ export default {
       this.form.validateFields((errors, values) => {
         if (!errors) {
           authVerify(values).then((res) => {
-            if (res.data) {
-              const token = res.headers.token
+            if (res.data.data) {
+              const auth = res.headers['auth']
+              const token = res.headers['token']
               if (token !== undefined && token !== null) {
-                localStorage.setItem(values.username, token)
+                localStorage.setItem("auth", auth)
+                localStorage.setItem("token", token)
+                this.$message.success("Login successful, response with token.");
+              } else {
+                this.$message.success("Login successful.");
               }
-              this.$message.success("Login successful.");
               this.clear();
             } else {
               this.$message.error("Login failed, try again.");
@@ -110,12 +122,17 @@ export default {
             this.$message.success(res.data);
           });
           break;
+        case "logout":
+          localStorage.removeItem("auth")
+          localStorage.removeItem("token")
+          this.$message.success("Logout success.");
+          break;
       }
     },
     clear() {
       this.form.resetFields()
     }
-  },
+  }
 }
 </script>
 

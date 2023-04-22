@@ -107,11 +107,9 @@ export default {
     customRow(record) {
       return {
         on: {
+          // dblclick
           click: () => {
             this.$message.success('Click record ' + record.userName)
-          },
-          dblclick: () => {
-            this.$message.success('Double click record ' + record.userName)
           }
         }
       }

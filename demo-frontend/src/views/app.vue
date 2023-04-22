@@ -68,12 +68,8 @@ export default {
           title: '弹窗',
           icon: 'alert'
         }, {
-          key: 'file',
-          title: '文件上传',
-          icon: 'cloud-download'
-        }, {
-          key: 'axios',
-          title: 'Axios请求',
+          key: 'request',
+          title: '请求',
           icon: 'select'
         }
       ]

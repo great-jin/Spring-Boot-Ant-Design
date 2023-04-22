@@ -21,10 +21,10 @@ public class TokenUtil {
     /**
      * 过期时间
      */
-    public static final Long JWT_TTL = TimeUnit.SECONDS.toMillis(2);
+    public static final Long JWT_TTL = TimeUnit.MINUTES.toMillis(5);
 
     public static void main(String[] args) throws Exception {
-        String userId = "123";
+        String userId = "user";
         String token = createJWT(userId, JWT_TTL);
         System.out.println("Token value: " + token);
 

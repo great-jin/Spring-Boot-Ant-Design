@@ -20,7 +20,7 @@ public class SysUser implements Serializable {
     @ExcelProperty("编号")
     private Integer id;
 
-    @ExcelProperty("用户米")
+    @ExcelProperty("用户名")
     private String username;
 
     @ExcelProperty("密码")

@@ -13,26 +13,26 @@
         :loading="uploading"
         :disabled="fileList.length === 0"
         @click="handleUpload"
-      >{{ uploading ? '上传中' : '上传' }}</a-button>
+      >{{ uploading ? '上传中' : '上传' }}
+      </a-button>
     </template>
 
     <a-spin :spinning="loading">
-      <a-input
-        v-model="userID"
-        placeholder="请输入用户编号"
-      />
       <a-upload
         :file-list="fileList"
         :remove="handleRemove"
         :before-upload="beforeUpload">
-        <a-button> <a-icon type="upload"/>选择文件</a-button>
+        <a-button>
+          <a-icon type="upload"/>
+          选择文件
+        </a-button>
       </a-upload>
     </a-spin>
   </a-modal>
 </template>
 
 <script>
-import { uploadFile } from '@/api/files.js';
+import {uploadFile} from '@/api/files.js';
 
 export default {
   name: "UploadModal",
@@ -41,12 +41,11 @@ export default {
       visible: false,
       loading: false,
       uploading: false,
-      userID: '',
       fileList: []
     }
   },
   methods: {
-    paramReceive () {
+    paramReceive() {
       this.visible = true
       this.loading = false
     },
@@ -65,29 +64,24 @@ export default {
       return false;
     },
     handleUpload() {
-      if (this.userID !== ''){
-        const { fileList } = this
-        const formData = new FormData()
-        fileList.forEach(file => {
-          formData.append('files', file)
-        });
-        formData.append('ID', this.userID)
-        this.uploading = true
+      const {fileList} = this
+      const formData = new FormData()
+      fileList.forEach(file => {
+        formData.append('files', file)
+      });
+      this.uploading = true
 
-        uploadFile(formData).then(res => {
-          if (res.data) {
-            this.fileList = []
-            this.uploading = false
-            this.$message.success('上传成功')
-          } else {
-            this.uploading = false
-            this.$message.error('上传失败')
-          }
-        })
-        this.cancel()
-      } else {
-        this.$message.error('ID 不能为空')
-      }
+      uploadFile(formData).then(res => {
+        if (res.data) {
+          this.fileList = []
+          this.uploading = false
+          this.$message.success('上传成功')
+        } else {
+          this.uploading = false
+          this.$message.error('上传失败')
+        }
+      })
+      this.cancel()
     }
   }
 }

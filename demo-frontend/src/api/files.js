@@ -1,9 +1,25 @@
 import request from './util/axios';
 
+const prefix = "/api/request"
+
+export function demo1() {
+  return request({
+    method: 'get',
+    url: `${prefix}/demo1`
+  })
+}
+
+export function demo2() {
+  return request({
+    method: 'get',
+    url: `${prefix}/demo2`
+  })
+}
+
 export function uploadFile(params) {
   return request({
     method: 'post',
-    url: '/api/minio/upload',
+    url: `${prefix}/upload`,
     data: params,
     headers: {
       'Content-Type': 'multipart/form-data'
@@ -13,7 +29,7 @@ export function uploadFile(params) {
 
 export const downloadFile = params => request({
   method: 'get',
-  url: '/api/files/downloadFile',
+  url: `${prefix}/downloadFile`,
   params: params,
   responseType: 'blob',
   headers: {
@@ -57,7 +73,7 @@ export const downloadFile = params => request({
 
 export const downloadExcel = params => request({
   method: 'get',
-  url: '/api/files/downloadExcel',
+  url: `${prefix}/downloadExcel`,
   params: params,
   responseType: 'blob',
   headers: {

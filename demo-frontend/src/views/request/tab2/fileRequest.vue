@@ -1,19 +1,22 @@
 <template>
   <div id="app">
-    <div class="upload">
-      <a-button type="primary" @click="showUpload()">上传</a-button>
-      <uploadModal ref="uploadModal" />
+    <div>
+      <a-row :style="{padding: '15px 25px', textAlign: 'center'}">
+        <a-button type="primary"
+                  @click="showUpload()"
+                  :style="{marginRight: '25px'}"
+        >上传</a-button>
+        <a-button type="primary"
+                  @click="download('txt')"
+                  :style="{marginRight: '25px'}"
+        >Txt下载</a-button>
+        <a-button type="primary"
+                  @click="download('excel')"
+        >Excel下载</a-button>
+
+        <uploadModal ref="uploadModal"/>
+      </a-row>
     </div>
-
-    <a-input
-      v-model="fileID"
-      placeholder="请输入文件编号"
-      style="width: 10%;margin: 50px 0 20px 0"
-    />
-    <br/><br/>
-
-    <a-button type="primary" @click="download('txt')">Txt 下载</a-button>
-    <a-button type="primary" @click="download('excel')">Excel 下载</a-button>
   </div>
 </template>
 

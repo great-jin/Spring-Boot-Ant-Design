@@ -1,5 +1,6 @@
 package xyz.ibudai.service.Impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -25,23 +26,21 @@ public class AuthUserServiceImpl implements AuthUserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return authUserDao.queryByName(username);
+        AuthUser authUser = authUserDao.queryByName(username);
+        if (authUser == null) {
+            throw new IllegalArgumentException("User [" + username + "] doesn't exist.");
+        }
+        return authUser;
     }
 
     @Override
-    public boolean authVerify(AuthUser user) throws Exception {
-        boolean isVerify = false;
-        AuthUser dbUser = authUserDao.queryById(user.getId());
+    public boolean login(AuthUser user) throws Exception {
+        AuthUser dbUser = authUserDao.queryByName(user.getUsername());
         if (dbUser == null) {
-            throw new RuntimeException("User [" + user.getId() + "] doesn't exist.");
+            throw new RuntimeException("User [" + user.getUsername() + "] doesn't exist.");
         }
-        String userName = user.getUsername();
         String userPwd = user.getPassword();
-        String dbUserName = dbUser.getUsername();
         String dbUserPwd = AESUtil.desEncrypt(dbUser.getPassword()).trim();
-        if (Objects.equals(userName, dbUserName)) {
-            isVerify = Objects.equals(userPwd, dbUserPwd);
-        }
-        return isVerify;
+        return Objects.equals(userPwd, dbUserPwd);
     }
 }

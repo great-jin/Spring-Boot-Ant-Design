@@ -23,13 +23,9 @@ export default new Router({
       name: 'Modal',
       component: () => import('@/views/modal/index')
     }, {
-      path: '/axios',
-      name: 'Axios',
-      component: () => import('@/views/axios/index')
-    }, {
-      path: '/file',
-      name: 'Files',
-      component: () => import('@/views/file/index')
+      path: '/request',
+      name: 'Request',
+      component: () => import('@/views/request/index')
     }
   ]
 })

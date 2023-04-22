@@ -11,5 +11,5 @@ import xyz.ibudai.entity.AuthUser;
  */
 public interface AuthUserService extends UserDetailsService {
 
-    boolean authVerify(AuthUser user) throws Exception;
+    boolean login(AuthUser user) throws Exception;
 }
