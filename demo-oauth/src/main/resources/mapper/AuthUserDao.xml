@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.ibudai.oauth.dao.AuthUserDao">
+
+    <resultMap type="xyz.ibudai.common.vo.AuthUser" id="TbUserMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="username" column="user_name" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="role" column="role" jdbcType="VARCHAR"/>
+        <result property="authority" column="authority" jdbcType="VARCHAR"/>
+        <result property="accountNonExpired" column="account_non_expired" jdbcType="INTEGER"/>
+        <result property="accountNonLocked" column="account_non_locked" jdbcType="INTEGER"/>
+        <result property="credentialsNonExpired" column="credentials_non_expired" jdbcType="INTEGER"/>
+        <result property="isEnabled" column="is_enabled" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id
+        ,
+        user_name,
+        password,
+        role,
+        authority,
+        account_non_expired,
+        account_non_locked,
+        credentials_non_expired,
+        is_enabled
+    </sql>
+
+    <select id="queryByName" resultMap="TbUserMap">
+        select
+        <include refid="BaseColumnList"/>
+        from auth_user
+        where user_name = #{username}
+    </select>
+</mapper>
+

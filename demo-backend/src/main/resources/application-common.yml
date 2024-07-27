@@ -1,0 +1,23 @@
+# 配置端口
+server:
+  port: 9090
+  tomcat:
+    uri-encoding: utf-8
+
+# Security auth
+auth:
+  host:
+    cors: http://localhost:8080,http://127.0.0.1:8080
+  api:
+    verify: /api/auth/verify
+    free: /api/auth/login,/api/auth/verify,/api/test/**,/api/file/**,/api/sysUser/**
+    user: /api/resource/user/**
+    admin: /api/resource/admin/**
+
+# 绑定 MyBatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: xyz.ibudai.common.vo
+  # 控制台打印 sql 语句
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
